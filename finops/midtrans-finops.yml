@@ -1,0 +1,108 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Midtrans
+providerId: midtrans
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- Fintech
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Midtrans spend. Midtrans has no platform, setup, or monthly API
+  fee - cost is incurred per successful transaction, priced by payment method
+  (a percentage, a flat IDR amount, or both) and, for Iris, per payout. Because
+  the fee is a merchant-discount-rate cut of payment volume rather than metered
+  API usage, cost is driven by transaction mix (which methods customers choose)
+  and gross payment value, not by call counts. Value-Added Tax applies to most
+  methods (QRIS, GoPay, and ShopeePay are quoted VAT-inclusive).
+notes: >-
+  Per-unit rates here are indicative published list rates and are not reconciled;
+  production rates are account-specific and negotiable at volume. Sandbox usage is
+  free. The dominant cost lever is payment-method mix - steering customers toward
+  lower-fee rails (QRIS, virtual account) versus cards materially changes blended
+  cost of acceptance.
+sources:
+- https://midtrans.com/pricing
+- https://docs.midtrans.com/docs/pricing
+- https://docs.midtrans.com/docs/how-much-does-midtrans-charge-for-its-payment-service
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Midtrans
+serviceCategory: Payment Processing
+billingModel:
+  pricingCategory: Usage-Based
+  billingFrequency: Per-Transaction
+  billingCurrency: IDR
+  chargeCategories:
+  - Usage
+  - Tax
+  - Adjustment
+focusColumns:
+  ServiceName: Midtrans Payment Gateway
+  ServiceCategory: Payment Processing
+  ProviderName: Midtrans
+  PublisherName: Midtrans
+  InvoiceIssuerName: Midtrans
+  BillingCurrency: IDR
+  ChargeCategory: Usage
+  PricingCategory: Usage-Based
+meters:
+- name: card_transaction_fee
+  description: Per-transaction fee on card payments, approx 2.9% + IDR 2,000 (excl. VAT).
+  unit: transaction
+  aggregation: sum
+  dimensions:
+  - account
+  - payment_type
+  - currency
+- name: ewallet_transaction_fee
+  description: Percentage fee on GoPay/ShopeePay (approx 2%) and QRIS (approx 0.7%), VAT-inclusive.
+  unit: transaction
+  aggregation: sum
+  dimensions:
+  - account
+  - payment_type
+- name: bank_transfer_fee
+  description: Flat per-transaction fee on virtual account / bank transfer, approx IDR 4,000 (excl. VAT).
+  unit: transaction
+  aggregation: sum
+  dimensions:
+  - account
+  - bank
+- name: disbursement_fee
+  description: Flat per-payout fee for Iris disbursements to banks and e-wallets.
+  unit: payout
+  aggregation: sum
+  dimensions:
+  - account
+  - beneficiary_bank
+- name: tax_vat
+  description: Value-Added Tax applied on top of applicable transaction fees.
+  unit: currency
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track fees by payment_type and bank so blended cost of acceptance is visible per rail and per order.
+- name: Allocation
+  description: Tag transactions by product/channel via order_id conventions and custom_field so payment fees map to internal cost centers.
+- name: Optimization
+  description: Steer customers toward lower-fee rails (QRIS, virtual account) where suitable; batch and right-size Iris payouts; avoid duplicate charges through order_id idempotency.
+- name: Accountability
+  description: Reconcile settlement reports against the notification webhook monthly; review fee mix and VAT against payment volume and margin targets.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

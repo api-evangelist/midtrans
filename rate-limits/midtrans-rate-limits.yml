@@ -1,0 +1,65 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Midtrans
+providerId: midtrans
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- Rate Limiting
+- Quotas
+description: >-
+  Midtrans does not publish fixed numeric per-minute request-rate limits for its
+  public payment APIs. Practical throughput is governed by the merchant account
+  and by the underlying payment channels (acquiring banks, e-wallet providers)
+  rather than by a documented request cap. A key operational constraint is
+  idempotency by order_id: an order_id can be charged only once, so retries must
+  reuse the same order_id and read status rather than re-charge. Midtrans advises
+  relying on the asynchronous HTTP Payment Notification (webhook) as the source of
+  truth and using Get Status for reconciliation rather than aggressive polling.
+notes: >-
+  No numeric per-account or per-endpoint request-rate limit is documented as of
+  the review date. Where transient throttling or upstream channel limits occur,
+  clients should back off and reconcile via the notification webhook and the Get
+  Status endpoint. Verify any account-specific limits with Midtrans support.
+sources:
+- https://docs.midtrans.com/docs/api-authorization-headers
+- https://docs.midtrans.com/reference/core-api-overview
+- https://docs.midtrans.com/docs/https-notification-webhooks
+responseCodes:
+  throttled: 429
+limits:
+- name: Payment API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for Snap or the Core API.
+- name: Charge Idempotency
+  scope: order
+  metric: charge
+  limit: one charge per order_id
+  notes: An order_id can only be charged once; reuse the same order_id and read status instead of re-charging.
+- name: Status Polling
+  scope: account
+  metric: requests
+  limit: not published
+  notes: Prefer the notification webhook over frequent Get Status polling for reconciliation.
+- name: Iris Payout Throughput
+  scope: account
+  metric: payouts
+  limit: balance-bound
+  notes: Payout throughput is bounded by available Iris balance and approver workflow rather than a documented request cap.
+policies:
+- name: Idempotency
+  description: Charges are idempotent per order_id; a repeated charge on the same order_id returns the existing transaction rather than creating a duplicate.
+- name: Asynchronous Notification
+  description: Transaction status changes are pushed via an HTTP Payment Notification to the merchant's configured URL; treat it as the source of truth and verify with a signature_key hash.
+- name: Backoff and Reconcile
+  description: On transient errors or 429 responses, apply exponential backoff and reconcile final state via Get Status rather than retrying the charge.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

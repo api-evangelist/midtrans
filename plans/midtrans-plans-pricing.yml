@@ -1,0 +1,153 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Midtrans
+providerId: midtrans
+created: '2026-07-12'
+modified: '2026-07-12'
+reconciled: false
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- Fintech
+- Plans
+description: >-
+  Midtrans does not sell API access tiers - the API, Sandbox, dashboard,
+  onboarding, and integration are free, and there is no setup or monthly platform
+  fee. Midtrans monetizes per successful transaction, with the fee varying by
+  payment method (a percentage, a flat IDR amount, or both). The "plans" below
+  are therefore the pricing buckets by payment method rather than subscription
+  tiers. Exact rates are indicative and Value-Added Tax (VAT) applies to most
+  methods; verify current figures on the Midtrans pricing page during
+  reconciliation.
+notes: >-
+  Sandbox is free and unmetered for integration testing. Production per-transaction
+  rates are set on the account and can be negotiated at volume, so the numbers here
+  are representative published list rates, not a reconciled contract. QRIS, GoPay,
+  and ShopeePay fees are quoted VAT-inclusive; card and virtual-account fees are
+  quoted exclusive of VAT.
+sources:
+- https://midtrans.com/pricing
+- https://docs.midtrans.com/docs/pricing
+- https://docs.midtrans.com/docs/how-much-does-midtrans-charge-for-its-payment-service
+- https://docs.midtrans.com/docs/what-is-the-applicable-transaction-fee-for-qris
+plans:
+- id: midtrans-sandbox
+  name: Sandbox
+  type: free
+  description: >-
+    Full API and dashboard access against the sandbox environment
+    (api.sandbox.midtrans.com, app.sandbox.midtrans.com) for building and testing
+    every payment method with no charge.
+  entries:
+  - label: Sandbox Transactions
+    name: sandbox_transactions
+    type: usage
+    metric: transactions
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: free
+    userMultiplied: false
+  elements:
+  - name: All Payment Methods
+  - name: Snap and Core API
+  - name: Iris Disbursement Sandbox
+- id: midtrans-cards
+  name: Credit / Debit Card
+  type: usage
+  description: >-
+    Per-transaction fee for card payments (Visa, Mastercard, JCB, Amex) including
+    3DS, one-click/two-click, and installment flows.
+  entries:
+  - label: Card Transaction Fee
+    name: card_fee
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: id
+    unit: 1
+    price: approx 2.9% + IDR 2,000 per transaction (excl. VAT)
+    userMultiplied: false
+  elements:
+  - name: 3D Secure
+  - name: Installment
+  - name: One-Click / Two-Click
+- id: midtrans-ewallet
+  name: E-Wallet (GoPay / ShopeePay / QRIS)
+  type: usage
+  description: >-
+    Per-transaction fee for e-wallet and QR payments. QRIS is charged at the
+    regulated MDR; GoPay and ShopeePay at a percentage of the transaction.
+  entries:
+  - label: GoPay / ShopeePay Fee
+    name: ewallet_fee
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: id
+    unit: 1
+    price: approx 2% per transaction (VAT-inclusive)
+    userMultiplied: false
+  - label: QRIS Fee
+    name: qris_fee
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: id
+    unit: 1
+    price: approx 0.7% per transaction (VAT-inclusive)
+    userMultiplied: false
+  elements:
+  - name: GoPay
+  - name: ShopeePay
+  - name: QRIS
+- id: midtrans-bank-transfer
+  name: Bank Transfer / Virtual Account
+  type: usage
+  description: >-
+    Flat per-transaction fee for virtual account bank transfer (Permata, BCA,
+    BNI, BRI, Mandiri Bill) and over-the-counter (Indomaret, Alfamart).
+  entries:
+  - label: Virtual Account Fee
+    name: va_fee
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: transaction
+    geo: id
+    unit: 1
+    price: approx IDR 4,000 flat per transaction (excl. VAT)
+    userMultiplied: false
+  elements:
+  - name: Permata / BCA / BNI / BRI VA
+  - name: Mandiri Bill (echannel)
+  - name: Over-the-Counter (Indomaret / Alfamart)
+- id: midtrans-disbursement
+  name: Iris Disbursement
+  type: usage
+  description: >-
+    Per-payout fee for disbursing funds to bank accounts and e-wallets via the
+    Iris (Payouts) API.
+  entries:
+  - label: Payout Fee
+    name: payout_fee
+    type: usage
+    metric: payout
+    limit: -1
+    timeFrame: transaction
+    geo: id
+    unit: 1
+    price: flat per-payout fee (see pricing page)
+    userMultiplied: false
+  elements:
+  - name: Bank Payout
+  - name: E-Wallet Payout
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

@@ -1,0 +1,225 @@
+aid: midtrans
+url: https://raw.githubusercontent.com/api-evangelist/midtrans/refs/heads/main/apis.yml
+name: Midtrans
+kind: company
+description: Midtrans is an Indonesian payment gateway (part of the GoTo Group,
+  alongside Gojek) that lets businesses accept online payments across cards, bank
+  transfer / virtual accounts, e-wallets (GoPay, ShopeePay, QRIS), over-the-counter
+  outlets, and cardless credit. It exposes Snap - a hosted / drop-in checkout - and
+  a Core API for building custom checkout flows (charge, status, cancel, expire,
+  refund, and card / GoPay tokenization), plus Payment Link, recurring Subscriptions,
+  and Iris for disbursements / payouts. All APIs are REST over HTTPS with separate
+  production (api.midtrans.com) and sandbox environments, authenticated with a Server
+  Key over HTTP Basic (key as username, empty password); a public Client Key is used
+  for browser-side card tokenization.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Payments
+- Payment Gateway
+- Indonesia
+- Southeast Asia
+- Snap
+- E-Wallet
+- Virtual Account
+- Cards
+- Bank Transfer
+- Fintech
+created: '2026-07-12'
+modified: '2026-07-12'
+specificationVersion: '0.19'
+apis:
+- aid: midtrans:midtrans-snap-api
+  name: Midtrans Snap API
+  tags:
+  - Snap
+  - Hosted Checkout
+  - Payments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/snap-api-overview
+  baseURL: https://app.midtrans.com/snap/v1
+  properties:
+  - url: https://docs.midtrans.com/reference/snap-api-overview
+    type: Documentation
+  - url: https://docs.midtrans.com/reference/snap-checkout-preference-api
+    type: APIReference
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Server-side call that creates a Snap checkout session and returns a
+    transaction token / redirect URL. Snap is Midtrans' hosted, drop-in checkout that
+    renders all enabled payment methods (cards, bank transfer / virtual accounts,
+    GoPay, ShopeePay, QRIS, over-the-counter, cardless credit) with no PCI burden on
+    the merchant. Sandbox host is app.sandbox.midtrans.com.
+- aid: midtrans:midtrans-core-api
+  name: Midtrans Core API
+  tags:
+  - Core API
+  - Charge
+  - Refund
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/core-api-overview
+  baseURL: https://api.midtrans.com/v2
+  properties:
+  - url: https://docs.midtrans.com/reference/core-api-overview
+    type: Documentation
+  - url: https://docs.midtrans.com/reference/charge-transactions-1
+    type: APIReference
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Payment API for building a custom checkout on your own interface. Charge
+    a transaction across any supported payment_type (credit_card, bank_transfer,
+    gopay, shopeepay, qris, echannel, cstore, akulaku, and more), then manage its
+    lifecycle - get status, approve or deny fraud-challenged transactions, cancel,
+    expire, refund, and online direct refund. Base is api.midtrans.com/v2 (production)
+    or api.sandbox.midtrans.com/v2 (sandbox).
+- aid: midtrans:midtrans-card-tokenization-api
+  name: Midtrans Card Tokenization API
+  tags:
+  - Cards
+  - Tokenization
+  - 3DS
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/get-token
+  baseURL: https://api.midtrans.com/v2
+  properties:
+  - url: https://docs.midtrans.com/reference/get-token
+    type: Documentation
+  - url: https://docs.midtrans.com/reference/register-card
+    type: APIReference
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Browser / client-side card handling that keeps raw PAN off the merchant
+    server. Get Token exchanges card data (or a saved token_id) for a one-time
+    transaction token used by Core API charge; Register Card stores a card for
+    one-click / two-click and recurring flows. These endpoints authenticate with the
+    public Client Key passed as a query parameter, not the Server Key.
+- aid: midtrans:midtrans-gopay-tokenization-api
+  name: Midtrans GoPay Tokenization API
+  tags:
+  - GoPay
+  - E-Wallet
+  - Tokenization
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/create-pay-account
+  baseURL: https://api.midtrans.com/v2
+  properties:
+  - url: https://docs.midtrans.com/reference/create-pay-account
+    type: Documentation
+  - url: https://docs.midtrans.com/reference/get-pay-account
+    type: APIReference
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Links a customer's GoPay account to the merchant for seamless e-wallet
+    payments. Create Pay Account binds a phone number and returns activation actions;
+    Get Pay Account retrieves the linked account status, balance metadata, and payment
+    tokens once the customer confirms in the Gojek app.
+- aid: midtrans:midtrans-payment-link-api
+  name: Midtrans Payment Link API
+  tags:
+  - Payment Link
+  - No Code
+  - Payments
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/create-payment-link
+  baseURL: https://api.midtrans.com/v1
+  properties:
+  - url: https://docs.midtrans.com/reference/create-payment-link
+    type: Documentation
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Programmatically create shareable payment links (a hosted pay page per
+    order) so a customer can pay without a custom checkout integration. Create a link,
+    retrieve its details, and delete it. Base is api.midtrans.com/v1 (production) or
+    api.sandbox.midtrans.com/v1 (sandbox).
+- aid: midtrans:midtrans-subscription-api
+  name: Midtrans Subscription API
+  tags:
+  - Subscription
+  - Recurring
+  - Billing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/reference/create-subscription
+  baseURL: https://api.midtrans.com/v1
+  properties:
+  - url: https://docs.midtrans.com/reference/create-subscription
+    type: Documentation
+  - url: https://docs.midtrans.com/reference/get-subscription
+    type: APIReference
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Recurring / subscription billing on a saved card or GoPay token. Create
+    a subscription with an interval and schedule, then get it, update it, disable and
+    enable it, or cancel it. Base is api.midtrans.com/v1 (production) or
+    api.sandbox.midtrans.com/v1 (sandbox).
+- aid: midtrans:midtrans-iris-disbursement-api
+  name: Midtrans Iris Disbursement API
+  tags:
+  - Disbursement
+  - Payouts
+  - Iris
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://docs.midtrans.com/docs/disbursement-overview
+  baseURL: https://app.midtrans.com/iris/api/v1
+  properties:
+  - url: https://docs.midtrans.com/docs/disbursement-overview
+    type: Documentation
+  - url: openapi/midtrans-openapi.yml
+    type: OpenAPI
+  - url: collections/midtrans.postman_collection.json
+    type: PostmanCollection
+  - url: collections/midtrans.opencollection.json
+    type: OpenCollection
+  description: Iris (Payouts) is Midtrans' cash-management API for disbursing money to
+    bank accounts and e-wallets in Indonesia. Manage beneficiaries, create and
+    approve / reject payouts, check payout status, inquire account balance, list
+    facilitator bank accounts, and validate a bank account. Iris authenticates with
+    its own creator / approver API key over HTTP Basic and is hosted under
+    app.midtrans.com/iris/api/v1 (production) or app.sandbox.midtrans.com/iris/api/v1
+    (sandbox).
+common:
+- type: DomainSecurity
+  url: security/midtrans-domain-security.yml
+- type: Authentication
+  url: authentication/midtrans-authentication.yml
+- type: GitHubOrganization
+  url: https://github.com/Midtrans
+- type: LinkedIn
+  url: https://www.linkedin.com/company/midtrans
+- type: Website
+  url: https://midtrans.com
+- type: Documentation
+  url: https://docs.midtrans.com
+- type: Plans
+  url: plans/midtrans-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/midtrans-rate-limits.yml
+- type: FinOps
+  url: finops/midtrans-finops.yml
+- url: https://midtrans.com/blog
+  type: Blog
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

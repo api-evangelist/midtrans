@@ -1,0 +1,43 @@
+generated: '2026-07-12'
+method: derived
+source: openapi/midtrans-openapi.yml
+summary:
+  types:
+  - http
+  - apiKey
+schemes:
+- name: serverKeyAuth
+  type: http
+  scheme: basic
+  description: >-
+    HTTP Basic authentication for all server-to-server calls (Snap, Core API
+    charge and lifecycle, Payment Link, Subscription). The Server Key is the
+    username and the password is empty, so the header is
+    `Authorization: Basic base64(SERVER_KEY:)`. Server Keys are issued per
+    environment in the Midtrans dashboard; Sandbox keys are prefixed
+    `SB-Mid-server-`.
+  sources:
+  - openapi/midtrans-openapi.yml
+  - https://docs.midtrans.com/docs/api-authorization-headers
+- name: clientKeyQuery
+  type: apiKey
+  in: query
+  parameterName: client_key
+  description: >-
+    Public Client Key passed as the `client_key` query parameter on the
+    browser-side card tokenization endpoints (`GET /v2/token`,
+    `GET /v2/card/register`). Being public, it can only mint one-time card
+    tokens - it cannot charge or read transactions. Sandbox keys are prefixed
+    `SB-Mid-client-`.
+  sources:
+  - openapi/midtrans-openapi.yml
+  - https://docs.midtrans.com/reference/get-token
+- name: irisApiKey
+  type: http
+  scheme: basic
+  description: >-
+    Iris disbursement uses its own creator / approver API key over HTTP Basic
+    (key as username, empty password), separate from the payment Server Key.
+    Sensitive payout approval can additionally require an OTP.
+  sources:
+  - https://docs.midtrans.com/docs/disbursement-overview

@@ -1,0 +1,156 @@
+aid: midtrans
+name: Midtrans
+review:
+  question: Does Midtrans expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-12'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Midtrans' entire public API surface -
+    Snap, Core API, card and GoPay tokenization, Payment Link, Subscription,
+    and Iris disbursement - is request/response REST over HTTPS. The only
+    server-to-client push Midtrans offers is the HTTP notification (webhook)
+    that it POSTs to a merchant-configured Payment Notification URL when a
+    transaction status changes; that is a plain HTTP callback, not a
+    WebSocket or SSE stream, so there is no server-push transport on Midtrans'
+    own API to model in AsyncAPI.
+findings:
+  summary: |
+    Midtrans does not publish a documented public WebSocket API. Midtrans is an
+    Indonesian payment gateway (part of the GoTo Group). Its public products are
+    all REST over HTTPS: Snap hosted checkout (POST app.midtrans.com/snap/v1/
+    transactions), the Core API for custom checkout (api.midtrans.com/v2 -
+    charge, status, approve, deny, cancel, expire, refund, direct refund, card
+    and GoPay tokenization), Payment Link and Subscription (api.midtrans.com/v1),
+    and Iris disbursement / payouts (app.midtrans.com/iris/api/v1). Authentication
+    is HTTP Basic with the Server Key as username and an empty password; card
+    tokenization uses the public Client Key as a query parameter, and Iris uses
+    its own creator/approver API key. Asynchronous transaction updates are
+    delivered by an HTTP notification webhook (an HTTP POST to the merchant's
+    configured URL), not by a WebSocket (ws:// or wss://) or SSE endpoint.
+  paymentMethods: |
+    Cards (credit/debit with 3DS, one-click/two-click, installment,
+    pre-authorization), bank transfer / virtual account (Permata, BCA, BNI, BRI,
+    Mandiri Bill/echannel), e-wallets (GoPay, ShopeePay, QRIS), over-the-counter
+    (Indomaret, Alfamart), and cardless credit (Akulaku, Kredivo).
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.midtrans.com/v2
+      documented: true
+      note: Core API (charge and lifecycle) and card/GoPay tokenization. Sandbox api.sandbox.midtrans.com/v2.
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.midtrans.com/snap/v1
+      documented: true
+      note: Snap hosted checkout token creation. Sandbox app.sandbox.midtrans.com/snap/v1.
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.midtrans.com/v1
+      documented: true
+      note: Payment Link and Subscription APIs. Sandbox api.sandbox.midtrans.com/v1.
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.midtrans.com/iris/api/v1
+      documented: true
+      note: Iris disbursement / payouts. Sandbox app.sandbox.midtrans.com/iris/api/v1.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: HTTP Payment Notification POSTed to the merchant's configured URL on transaction status change. Server-to-endpoint HTTP callback, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in Midtrans' Snap, Core API, Payment Link, Subscription, or Iris references as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://app.midtrans.com/snap/v1/transactions
+    - POST   https://api.midtrans.com/v2/charge
+    - GET    https://api.midtrans.com/v2/token
+    - GET    https://api.midtrans.com/v2/card/register
+    - GET    https://api.midtrans.com/v2/{order_id}/status
+    - POST   https://api.midtrans.com/v2/{order_id}/approve
+    - POST   https://api.midtrans.com/v2/{order_id}/deny
+    - POST   https://api.midtrans.com/v2/{order_id}/cancel
+    - POST   https://api.midtrans.com/v2/{order_id}/expire
+    - POST   https://api.midtrans.com/v2/{order_id}/refund
+    - POST   https://api.midtrans.com/v2/{order_id}/refund/online/direct
+    - POST   https://api.midtrans.com/v2/pay/account
+    - GET    https://api.midtrans.com/v2/pay/account/{account_id}
+    - POST   https://api.midtrans.com/v1/payment-links
+    - GET    https://api.midtrans.com/v1/payment-links/{order_id}
+    - DELETE https://api.midtrans.com/v1/payment-links/{order_id}
+    - POST   https://api.midtrans.com/v1/subscriptions
+    - GET    https://api.midtrans.com/v1/subscriptions/{subscription_id}
+    - PATCH  https://api.midtrans.com/v1/subscriptions/{subscription_id}
+    - POST   https://api.midtrans.com/v1/subscriptions/{subscription_id}/enable
+    - POST   https://api.midtrans.com/v1/subscriptions/{subscription_id}/disable
+    - POST   https://api.midtrans.com/v1/subscriptions/{subscription_id}/cancel
+    - GET    https://app.midtrans.com/iris/api/v1/ping
+    - GET    https://app.midtrans.com/iris/api/v1/beneficiaries
+    - POST   https://app.midtrans.com/iris/api/v1/beneficiaries
+    - PATCH  https://app.midtrans.com/iris/api/v1/beneficiaries/{alias_name}
+    - POST   https://app.midtrans.com/iris/api/v1/payouts
+    - POST   https://app.midtrans.com/iris/api/v1/payouts/approve
+    - POST   https://app.midtrans.com/iris/api/v1/payouts/reject
+    - GET    https://app.midtrans.com/iris/api/v1/payouts/{reference_no}
+    - GET    https://app.midtrans.com/iris/api/v1/balance
+    - GET    https://app.midtrans.com/iris/api/v1/bank_accounts
+    - GET    https://app.midtrans.com/iris/api/v1/account_validation
+  endpointsModeled:
+    - note: >-
+        Snap, Core API charge, transaction lifecycle (status/approve/deny/cancel/
+        expire/refund/direct refund), card token, card register, and GoPay
+        pay-account endpoints are confirmed against Midtrans' official Postman
+        collection (github.com/Midtrans/Midtrans-Payment-API-Postman-Collections)
+        and the docs.midtrans.com reference. Payment Link create, Subscription
+        create/get, and Iris payouts/beneficiaries/balance are confirmed in the
+        docs. The Payment Link get/delete, Subscription update/enable/disable/
+        cancel, Iris beneficiary update, payout reject, bank_accounts, and
+        account_validation paths follow Midtrans' documented REST conventions and
+        client libraries but were not each individually re-fetched; request and
+        response bodies throughout the OpenAPI are modeled representatively rather
+        than field-exhaustively.
+  authentication: |
+    HTTP Basic. Server Key is the username, password is empty:
+    Authorization: Basic base64(SERVER_KEY:). The two card tokenization
+    endpoints (GET /v2/token, GET /v2/card/register) use the public Client Key
+    as a query parameter instead. Iris disbursement uses its own creator /
+    approver API key over HTTP Basic. Sandbox keys are prefixed SB-Mid-.
+sources:
+  - url: https://docs.midtrans.com/reference/core-api-overview
+    type: Documentation
+    note: Core API overview; base api.midtrans.com/v2, HTTP Basic Server Key auth.
+  - url: https://docs.midtrans.com/reference/charge-transactions-1
+    type: APIReference
+    note: POST /v2/charge with payment_type; production and sandbox hosts confirmed.
+  - url: https://docs.midtrans.com/docs/api-authorization-headers
+    type: Documentation
+    note: HTTP Basic auth - Server Key as username, empty password, base64 encoded.
+  - url: https://docs.midtrans.com/reference/snap-api-overview
+    type: Documentation
+    note: Snap hosted checkout; POST app.midtrans.com/snap/v1/transactions.
+  - url: https://docs.midtrans.com/reference/create-payment-link
+    type: APIReference
+    note: POST /v1/payment-links; Basic auth Server Key, empty password.
+  - url: https://docs.midtrans.com/reference/create-subscription
+    type: APIReference
+    note: POST /v1/subscriptions for recurring billing.
+  - url: https://docs.midtrans.com/reference/create-pay-account
+    type: APIReference
+    note: GoPay tokenization POST /v2/pay/account and GET /v2/pay/account/{account_id}.
+  - url: https://docs.midtrans.com/docs/disbursement-overview
+    type: Documentation
+    note: Iris (Payouts) disbursement; base app.midtrans.com/iris/api/v1.
+  - url: https://github.com/Midtrans/Midtrans-Payment-API-Postman-Collections
+    type: SourceCode
+    note: Official Midtrans Postman collection; exact Snap and Core API endpoint paths.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists on Midtrans' public API. Every product
+    is request/response REST over HTTPS, and the only asynchronous channel is an
+    HTTP notification webhook POSTed to the merchant. No AsyncAPI document was
+    created because there is no server-push WebSocket or SSE transport on
+    Midtrans' own API to model. WebSocket precision is therefore false.

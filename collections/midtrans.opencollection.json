@@ -1,0 +1,353 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{serverKey}}",
+      "password": ""
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Snap", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create Snap transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://app.sandbox.midtrans.com/snap/v1/transactions",
+            "body": { "type": "json", "data": "{\n  \"transaction_details\": { \"order_id\": \"order-101\", \"gross_amount\": 44000 }\n}" }
+          },
+          "docs": "Creates a Snap checkout session and returns a token and redirect_url. Production host app.midtrans.com."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Core API", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Charge transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/charge",
+            "body": { "type": "json", "data": "{\n  \"payment_type\": \"bank_transfer\",\n  \"bank_transfer\": { \"bank\": \"bca\" },\n  \"transaction_details\": { \"order_id\": \"order-101\", \"gross_amount\": 44000 }\n}" }
+          },
+          "docs": "Charges a transaction for the chosen payment_type. Production host api.midtrans.com."
+        },
+        {
+          "info": { "name": "Get transaction status.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/status",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }]
+          },
+          "docs": "Retrieves the latest status of a transaction."
+        },
+        {
+          "info": { "name": "Approve transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/approve",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }]
+          },
+          "docs": "Approves a card transaction flagged with a fraud challenge status."
+        },
+        {
+          "info": { "name": "Deny transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/deny",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }]
+          },
+          "docs": "Denies a card transaction flagged with a fraud challenge status."
+        },
+        {
+          "info": { "name": "Cancel transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/cancel",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }]
+          },
+          "docs": "Cancels a transaction before it settles."
+        },
+        {
+          "info": { "name": "Expire transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/expire",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }]
+          },
+          "docs": "Immediately expires a pending transaction."
+        },
+        {
+          "info": { "name": "Refund transaction.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/refund",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }],
+            "body": { "type": "json", "data": "{\n  \"refund_key\": \"ref-101\",\n  \"amount\": 44000,\n  \"reason\": \"Customer request\"\n}" }
+          },
+          "docs": "Refunds a settled transaction, fully or partially."
+        },
+        {
+          "info": { "name": "Online direct refund.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/:order_id/refund/online/direct",
+            "params": [{ "name": "order_id", "value": "order-101", "type": "path", "description": "order_id or transaction_id." }],
+            "body": { "type": "json", "data": "{\n  \"refund_key\": \"ref-101\",\n  \"amount\": 44000,\n  \"reason\": \"Customer request\"\n}" }
+          },
+          "docs": "Performs a direct online refund for supported channels (GoPay, QRIS, ShopeePay)."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Card Tokenization", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get card token.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v2/token",
+            "auth": { "type": "none" },
+            "params": [
+              { "name": "client_key", "value": "{{clientKey}}", "type": "query", "description": "Public Client Key." },
+              { "name": "card_number", "value": "4811111111111114", "type": "query" },
+              { "name": "card_exp_month", "value": "12", "type": "query" },
+              { "name": "card_exp_year", "value": "2026", "type": "query" },
+              { "name": "card_cvv", "value": "123", "type": "query" }
+            ]
+          },
+          "docs": "Exchanges card data for a one-time token_id. Uses the public Client Key, not the Server Key."
+        },
+        {
+          "info": { "name": "Register card.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v2/card/register",
+            "auth": { "type": "none" },
+            "params": [
+              { "name": "client_key", "value": "{{clientKey}}", "type": "query", "description": "Public Client Key." },
+              { "name": "card_number", "value": "5211111111111117", "type": "query" },
+              { "name": "card_exp_month", "value": "12", "type": "query" },
+              { "name": "card_exp_year", "value": "2026", "type": "query" }
+            ]
+          },
+          "docs": "Registers (saves) a card for one-click / two-click and recurring use."
+        }
+      ]
+    },
+    {
+      "info": { "name": "GoPay Tokenization", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create pay account.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v2/pay/account",
+            "body": { "type": "json", "data": "{\n  \"payment_type\": \"gopay\",\n  \"gopay_partner\": { \"phone_number\": \"81234567890\", \"country_code\": \"62\", \"redirect_url\": \"https://example.com/callback\" }\n}" }
+          },
+          "docs": "Links a customer's GoPay account and returns activation actions."
+        },
+        {
+          "info": { "name": "Get pay account.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v2/pay/account/:account_id",
+            "params": [{ "name": "account_id", "value": "", "type": "path", "description": "The linked pay account id." }]
+          },
+          "docs": "Retrieves a linked GoPay account's status and payment tokens."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Payment Link", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create payment link.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v1/payment-links",
+            "body": { "type": "json", "data": "{\n  \"transaction_details\": { \"order_id\": \"order-link-101\", \"gross_amount\": 44000 },\n  \"usage_limit\": 1\n}" }
+          },
+          "docs": "Creates a shareable hosted payment page for an order."
+        },
+        {
+          "info": { "name": "Get payment link.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v1/payment-links/:order_id",
+            "params": [{ "name": "order_id", "value": "order-link-101", "type": "path", "description": "The payment link order_id." }]
+          },
+          "docs": "Retrieves a payment link's details and payment status."
+        },
+        {
+          "info": { "name": "Delete payment link.", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.sandbox.midtrans.com/v1/payment-links/:order_id",
+            "params": [{ "name": "order_id", "value": "order-link-101", "type": "path", "description": "The payment link order_id." }]
+          },
+          "docs": "Deletes a payment link."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Subscription", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create subscription.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions",
+            "body": { "type": "json", "data": "{\n  \"name\": \"MONTHLY_2026\",\n  \"amount\": \"44000\",\n  \"currency\": \"IDR\",\n  \"payment_type\": \"credit_card\",\n  \"token\": \"<saved_token_id>\",\n  \"schedule\": { \"interval\": 1, \"interval_unit\": \"month\", \"max_interval\": 12 }\n}" }
+          },
+          "docs": "Creates a recurring subscription on a saved card or GoPay token."
+        },
+        {
+          "info": { "name": "Get subscription.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions/:subscription_id",
+            "params": [{ "name": "subscription_id", "value": "", "type": "path", "description": "The subscription id." }]
+          },
+          "docs": "Retrieves a subscription by its ID."
+        },
+        {
+          "info": { "name": "Update subscription.", "type": "http" },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions/:subscription_id",
+            "params": [{ "name": "subscription_id", "value": "", "type": "path", "description": "The subscription id." }],
+            "body": { "type": "json", "data": "{\n  \"amount\": \"55000\"\n}" }
+          },
+          "docs": "Updates the amount, schedule, or token of a subscription."
+        },
+        {
+          "info": { "name": "Enable subscription.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions/:subscription_id/enable",
+            "params": [{ "name": "subscription_id", "value": "", "type": "path", "description": "The subscription id." }]
+          },
+          "docs": "Re-enables a disabled subscription."
+        },
+        {
+          "info": { "name": "Disable subscription.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions/:subscription_id/disable",
+            "params": [{ "name": "subscription_id", "value": "", "type": "path", "description": "The subscription id." }]
+          },
+          "docs": "Pauses a subscription until re-enabled."
+        },
+        {
+          "info": { "name": "Cancel subscription.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.sandbox.midtrans.com/v1/subscriptions/:subscription_id/cancel",
+            "params": [{ "name": "subscription_id", "value": "", "type": "path", "description": "The subscription id." }]
+          },
+          "docs": "Permanently cancels a subscription."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Iris Disbursement", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Ping.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.sandbox.midtrans.com/iris/api/v1/ping" },
+          "docs": "Health check that returns pong. Iris uses its own creator/approver API key."
+        },
+        {
+          "info": { "name": "List beneficiaries.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.sandbox.midtrans.com/iris/api/v1/beneficiaries" },
+          "docs": "Lists saved beneficiaries."
+        },
+        {
+          "info": { "name": "Create beneficiary.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/beneficiaries",
+            "body": { "type": "json", "data": "{\n  \"name\": \"Budi\",\n  \"account\": \"0611101146\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"budi01\",\n  \"email\": \"budi@example.com\"\n}" }
+          },
+          "docs": "Creates a new beneficiary."
+        },
+        {
+          "info": { "name": "Update beneficiary.", "type": "http" },
+          "http": {
+            "method": "PATCH",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/beneficiaries/:alias_name",
+            "params": [{ "name": "alias_name", "value": "budi01", "type": "path", "description": "The beneficiary alias." }],
+            "body": { "type": "json", "data": "{\n  \"name\": \"Budi Update\",\n  \"account\": \"0611101146\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"budi01\",\n  \"email\": \"budi@example.com\"\n}" }
+          },
+          "docs": "Updates an existing beneficiary by alias_name."
+        },
+        {
+          "info": { "name": "Create payouts.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/payouts",
+            "body": { "type": "json", "data": "{\n  \"payouts\": [ { \"beneficiary_name\": \"Budi\", \"beneficiary_account\": \"0611101146\", \"beneficiary_bank\": \"bca\", \"amount\": \"100000\", \"notes\": \"Vendor payout\" } ]\n}" }
+          },
+          "docs": "Creates one or more payouts (Creator role)."
+        },
+        {
+          "info": { "name": "Approve payouts.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/payouts/approve",
+            "body": { "type": "json", "data": "{\n  \"reference_nos\": [\"a3f47c8b\"]\n}" }
+          },
+          "docs": "Approves requested payouts (Approver role)."
+        },
+        {
+          "info": { "name": "Reject payouts.", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/payouts/reject",
+            "body": { "type": "json", "data": "{\n  \"reference_nos\": [\"a3f47c8b\"],\n  \"reject_reason\": \"Wrong account\"\n}" }
+          },
+          "docs": "Rejects requested payouts (Approver role)."
+        },
+        {
+          "info": { "name": "Get payout details.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/payouts/:reference_no",
+            "params": [{ "name": "reference_no", "value": "", "type": "path", "description": "The payout reference number." }]
+          },
+          "docs": "Retrieves the details and status of a single payout."
+        },
+        {
+          "info": { "name": "Get balance.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.sandbox.midtrans.com/iris/api/v1/balance" },
+          "docs": "Returns the current Iris account balance."
+        },
+        {
+          "info": { "name": "List bank accounts.", "type": "http" },
+          "http": { "method": "GET", "url": "https://app.sandbox.midtrans.com/iris/api/v1/bank_accounts" },
+          "docs": "Lists registered bank accounts (facilitator scheme)."
+        },
+        {
+          "info": { "name": "Validate bank account.", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://app.sandbox.midtrans.com/iris/api/v1/account_validation",
+            "params": [
+              { "name": "bank", "value": "bca", "type": "query", "description": "Bank code." },
+              { "name": "account", "value": "0611101146", "type": "query", "description": "Destination account number." }
+            ]
+          },
+          "docs": "Validates a bank account and returns the account holder name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

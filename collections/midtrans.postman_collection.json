@@ -1,0 +1,370 @@
+{
+  "info": {
+    "name": "Midtrans Payment API",
+    "description": "Midtrans is an Indonesian payment gateway (part of the GoTo Group). This collection covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, Subscriptions, and Iris disbursement. Auth is HTTP Basic with the Server Key as username and an empty password. Card tokenization uses the public Client Key as a query parameter. Production hosts: api.midtrans.com and app.midtrans.com; Sandbox: api.sandbox.midtrans.com and app.sandbox.midtrans.com.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "basic",
+    "basic": [
+      { "key": "username", "value": "{{serverKey}}", "type": "string" },
+      { "key": "password", "value": "", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "apiBase", "value": "https://api.sandbox.midtrans.com", "type": "string" },
+    { "key": "appBase", "value": "https://app.sandbox.midtrans.com", "type": "string" },
+    { "key": "serverKey", "value": "", "type": "string" },
+    { "key": "clientKey", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Snap",
+      "item": [
+        {
+          "name": "Create Snap transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"order-101\",\n    \"gross_amount\": 44000\n  },\n  \"credit_card\": { \"secure\": true }\n}" },
+            "url": { "raw": "{{appBase}}/snap/v1/transactions", "host": ["{{appBase}}"], "path": ["snap", "v1", "transactions"] },
+            "description": "Creates a Snap checkout session and returns a token and redirect_url."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Core API",
+      "item": [
+        {
+          "name": "Charge transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"payment_type\": \"bank_transfer\",\n  \"bank_transfer\": { \"bank\": \"bca\" },\n  \"transaction_details\": {\n    \"order_id\": \"order-101\",\n    \"gross_amount\": 44000\n  }\n}" },
+            "url": { "raw": "{{apiBase}}/v2/charge", "host": ["{{apiBase}}"], "path": ["v2", "charge"] },
+            "description": "Charges a transaction for the chosen payment_type."
+          }
+        },
+        {
+          "name": "Get transaction status",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/:order_id/status", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "status"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Retrieves the latest status of a transaction by order_id or transaction_id."
+          }
+        },
+        {
+          "name": "Approve transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/:order_id/approve", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "approve"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Approves a card transaction flagged with a fraud challenge status."
+          }
+        },
+        {
+          "name": "Deny transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/:order_id/deny", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "deny"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Denies a card transaction flagged with a fraud challenge status."
+          }
+        },
+        {
+          "name": "Cancel transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/:order_id/cancel", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "cancel"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Cancels a transaction before it settles."
+          }
+        },
+        {
+          "name": "Expire transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/:order_id/expire", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "expire"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Immediately expires a pending transaction."
+          }
+        },
+        {
+          "name": "Refund transaction",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"refund_key\": \"ref-101\",\n  \"amount\": 44000,\n  \"reason\": \"Customer request\"\n}" },
+            "url": { "raw": "{{apiBase}}/v2/:order_id/refund", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "refund"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Refunds a settled transaction, fully or partially."
+          }
+        },
+        {
+          "name": "Online direct refund",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"refund_key\": \"ref-101\",\n  \"amount\": 44000,\n  \"reason\": \"Customer request\"\n}" },
+            "url": { "raw": "{{apiBase}}/v2/:order_id/refund/online/direct", "host": ["{{apiBase}}"], "path": ["v2", ":order_id", "refund", "online", "direct"], "variable": [{ "key": "order_id", "value": "order-101" }] },
+            "description": "Performs a direct online refund for supported channels (GoPay, QRIS, ShopeePay)."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Card Tokenization",
+      "item": [
+        {
+          "name": "Get card token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/token?client_key={{clientKey}}&card_number=4811111111111114&card_exp_month=12&card_exp_year=2026&card_cvv=123", "host": ["{{apiBase}}"], "path": ["v2", "token"], "query": [{ "key": "client_key", "value": "{{clientKey}}" }, { "key": "card_number", "value": "4811111111111114" }, { "key": "card_exp_month", "value": "12" }, { "key": "card_exp_year", "value": "2026" }, { "key": "card_cvv", "value": "123" }] },
+            "description": "Exchanges card data for a one-time token_id. Uses the public Client Key, not the Server Key."
+          }
+        },
+        {
+          "name": "Register card",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/card/register?client_key={{clientKey}}&card_number=5211111111111117&card_exp_month=12&card_exp_year=2026", "host": ["{{apiBase}}"], "path": ["v2", "card", "register"], "query": [{ "key": "client_key", "value": "{{clientKey}}" }, { "key": "card_number", "value": "5211111111111117" }, { "key": "card_exp_month", "value": "12" }, { "key": "card_exp_year", "value": "2026" }] },
+            "description": "Registers (saves) a card for one-click / two-click and recurring use."
+          }
+        }
+      ]
+    },
+    {
+      "name": "GoPay Tokenization",
+      "item": [
+        {
+          "name": "Create pay account",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"payment_type\": \"gopay\",\n  \"gopay_partner\": {\n    \"phone_number\": \"81234567890\",\n    \"country_code\": \"62\",\n    \"redirect_url\": \"https://example.com/callback\"\n  }\n}" },
+            "url": { "raw": "{{apiBase}}/v2/pay/account", "host": ["{{apiBase}}"], "path": ["v2", "pay", "account"] },
+            "description": "Links a customer's GoPay account and returns activation actions."
+          }
+        },
+        {
+          "name": "Get pay account",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v2/pay/account/:account_id", "host": ["{{apiBase}}"], "path": ["v2", "pay", "account", ":account_id"], "variable": [{ "key": "account_id", "value": "" }] },
+            "description": "Retrieves a linked GoPay account's status and payment tokens."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payment Link",
+      "item": [
+        {
+          "name": "Create payment link",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"order-link-101\",\n    \"gross_amount\": 44000\n  },\n  \"usage_limit\": 1\n}" },
+            "url": { "raw": "{{apiBase}}/v1/payment-links", "host": ["{{apiBase}}"], "path": ["v1", "payment-links"] },
+            "description": "Creates a shareable hosted payment page for an order."
+          }
+        },
+        {
+          "name": "Get payment link",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/payment-links/:order_id", "host": ["{{apiBase}}"], "path": ["v1", "payment-links", ":order_id"], "variable": [{ "key": "order_id", "value": "order-link-101" }] },
+            "description": "Retrieves a payment link's details and payment status."
+          }
+        },
+        {
+          "name": "Delete payment link",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/payment-links/:order_id", "host": ["{{apiBase}}"], "path": ["v1", "payment-links", ":order_id"], "variable": [{ "key": "order_id", "value": "order-link-101" }] },
+            "description": "Deletes a payment link."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Subscription",
+      "item": [
+        {
+          "name": "Create subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"MONTHLY_2026\",\n  \"amount\": \"44000\",\n  \"currency\": \"IDR\",\n  \"payment_type\": \"credit_card\",\n  \"token\": \"<saved_token_id>\",\n  \"schedule\": {\n    \"interval\": 1,\n    \"interval_unit\": \"month\",\n    \"max_interval\": 12\n  }\n}" },
+            "url": { "raw": "{{apiBase}}/v1/subscriptions", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions"] },
+            "description": "Creates a recurring subscription on a saved card or GoPay token."
+          }
+        },
+        {
+          "name": "Get subscription",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/subscriptions/:subscription_id", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions", ":subscription_id"], "variable": [{ "key": "subscription_id", "value": "" }] },
+            "description": "Retrieves a subscription by its ID."
+          }
+        },
+        {
+          "name": "Update subscription",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"amount\": \"55000\"\n}" },
+            "url": { "raw": "{{apiBase}}/v1/subscriptions/:subscription_id", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions", ":subscription_id"], "variable": [{ "key": "subscription_id", "value": "" }] },
+            "description": "Updates the amount, schedule, or token of a subscription."
+          }
+        },
+        {
+          "name": "Enable subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/subscriptions/:subscription_id/enable", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions", ":subscription_id", "enable"], "variable": [{ "key": "subscription_id", "value": "" }] },
+            "description": "Re-enables a disabled subscription."
+          }
+        },
+        {
+          "name": "Disable subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/subscriptions/:subscription_id/disable", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions", ":subscription_id", "disable"], "variable": [{ "key": "subscription_id", "value": "" }] },
+            "description": "Pauses a subscription until re-enabled."
+          }
+        },
+        {
+          "name": "Cancel subscription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{apiBase}}/v1/subscriptions/:subscription_id/cancel", "host": ["{{apiBase}}"], "path": ["v1", "subscriptions", ":subscription_id", "cancel"], "variable": [{ "key": "subscription_id", "value": "" }] },
+            "description": "Permanently cancels a subscription."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Iris Disbursement",
+      "description": "Iris uses its own creator / approver API key over HTTP Basic. Set serverKey to the Iris key for these calls, or override auth per request.",
+      "item": [
+        {
+          "name": "Ping",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/ping", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "ping"] },
+            "description": "Health check that returns pong."
+          }
+        },
+        {
+          "name": "List beneficiaries",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/beneficiaries", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "beneficiaries"] },
+            "description": "Lists saved beneficiaries."
+          }
+        },
+        {
+          "name": "Create beneficiary",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Budi\",\n  \"account\": \"0611101146\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"budi01\",\n  \"email\": \"budi@example.com\"\n}" },
+            "url": { "raw": "{{appBase}}/iris/api/v1/beneficiaries", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "beneficiaries"] },
+            "description": "Creates a new beneficiary."
+          }
+        },
+        {
+          "name": "Update beneficiary",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"name\": \"Budi Update\",\n  \"account\": \"0611101146\",\n  \"bank\": \"bca\",\n  \"alias_name\": \"budi01\",\n  \"email\": \"budi@example.com\"\n}" },
+            "url": { "raw": "{{appBase}}/iris/api/v1/beneficiaries/:alias_name", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "beneficiaries", ":alias_name"], "variable": [{ "key": "alias_name", "value": "budi01" }] },
+            "description": "Updates an existing beneficiary by alias_name."
+          }
+        },
+        {
+          "name": "Create payouts",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"Budi\",\n      \"beneficiary_account\": \"0611101146\",\n      \"beneficiary_bank\": \"bca\",\n      \"amount\": \"100000\",\n      \"notes\": \"Vendor payout\"\n    }\n  ]\n}" },
+            "url": { "raw": "{{appBase}}/iris/api/v1/payouts", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "payouts"] },
+            "description": "Creates one or more payouts (Creator role)."
+          }
+        },
+        {
+          "name": "Approve payouts",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"reference_nos\": [\"a3f47c8b\"]\n}" },
+            "url": { "raw": "{{appBase}}/iris/api/v1/payouts/approve", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "payouts", "approve"] },
+            "description": "Approves requested payouts (Approver role)."
+          }
+        },
+        {
+          "name": "Reject payouts",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }, { "key": "Accept", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"reference_nos\": [\"a3f47c8b\"],\n  \"reject_reason\": \"Wrong account\"\n}" },
+            "url": { "raw": "{{appBase}}/iris/api/v1/payouts/reject", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "payouts", "reject"] },
+            "description": "Rejects requested payouts (Approver role)."
+          }
+        },
+        {
+          "name": "Get payout details",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/payouts/:reference_no", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "payouts", ":reference_no"], "variable": [{ "key": "reference_no", "value": "" }] },
+            "description": "Retrieves the details and status of a single payout."
+          }
+        },
+        {
+          "name": "Get balance",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/balance", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "balance"] },
+            "description": "Returns the current Iris account balance."
+          }
+        },
+        {
+          "name": "List bank accounts",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/bank_accounts", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "bank_accounts"] },
+            "description": "Lists registered bank accounts (facilitator scheme)."
+          }
+        },
+        {
+          "name": "Validate bank account",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{appBase}}/iris/api/v1/account_validation?bank=bca&account=0611101146", "host": ["{{appBase}}"], "path": ["iris", "api", "v1", "account_validation"], "query": [{ "key": "bank", "value": "bca" }, { "key": "account", "value": "0611101146" }] },
+            "description": "Validates a bank account and returns the account holder name."
+          }
+        }
+      ]
+    }
+  ]
+}

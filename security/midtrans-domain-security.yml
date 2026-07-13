@@ -1,0 +1,43 @@
+generated: '2026-07-12'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: midtrans.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Aug 13 20:13:32 2026 GMT
+  cert_issuer: Google Trust Services
+  hsts: false
+- host: api.midtrans.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb  9 23:59:59 2027 GMT
+  cert_issuer: ZeroSSL
+  hsts: unknown
+  notes: Fronted by Alibaba Cloud WAF (CNAME to *.aliyunwaf2.com); HEAD probe blocked, so the HSTS header could not be read.
+- host: docs.midtrans.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  2 15:29:11 2026 GMT
+  cert_issuer: Google Trust Services
+  hsts: true
+  hsts_max_age: 31536000
+- host: app.midtrans.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Feb  9 23:59:59 2027 GMT
+  cert_issuer: ZeroSSL
+  hsts: true
+  hsts_max_age: 31536000
+domains:
+- domain: midtrans.com
+  dnssec: false
+  caa: []
+  spf: true
+  spf_record: v=spf1 include:_spf.google.com include:mailgun.org include:10122944f.ppspf.net include:2528720.spf02.hubspotemail.net ~all
+  dmarc: true
+  dmarc_policy: reject
+- domain: api.midtrans.com
+  dnssec: false
+  caa: []
+  notes: Resolves via CNAME to Alibaba Cloud WAF; no CAA record served at this name.
