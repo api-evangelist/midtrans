@@ -200,6 +200,8 @@ apis:
     app.midtrans.com/iris/api/v1 (production) or app.sandbox.midtrans.com/iris/api/v1
     (sandbox).
 common:
+- type: AgenticAccess
+  url: agentic-access/midtrans-agentic-access.yml
 - type: DomainSecurity
   url: security/midtrans-domain-security.yml
 - type: Authentication
