@@ -1,0 +1,246 @@
+openapi: 3.0.3
+info:
+  title: Midtrans Payment Card Tokenization Subscription API
+  description: 'A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.
+
+
+    Hosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.
+
+
+    Authentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.
+
+
+    This document was authored by API Evangelist from Midtrans'' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.'
+  version: '1.0'
+  contact:
+    name: Midtrans
+    url: https://midtrans.com
+  license:
+    name: Proprietary
+    url: https://midtrans.com
+servers:
+- url: https://api.midtrans.com
+  description: Core API / Payment Link / Subscription - Production
+- url: https://api.sandbox.midtrans.com
+  description: Core API / Payment Link / Subscription - Sandbox
+security:
+- serverKeyAuth: []
+tags:
+- name: Subscription
+  description: Recurring / subscription billing.
+paths:
+  /v1/subscriptions:
+    post:
+      operationId: createSubscription
+      tags:
+      - Subscription
+      summary: Create a subscription
+      description: Creates a recurring subscription against a saved card or GoPay token, with an amount, currency, payment_type, token, and a schedule (interval, interval_unit, start_time, max_interval).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+      responses:
+        '201':
+          description: The created subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/subscriptions/{subscription_id}:
+    parameters:
+    - $ref: '#/components/parameters/SubscriptionId'
+    get:
+      operationId: getSubscription
+      tags:
+      - Subscription
+      summary: Get a subscription
+      description: Retrieves a subscription by its ID.
+      responses:
+        '200':
+          description: The subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    patch:
+      operationId: updateSubscription
+      tags:
+      - Subscription
+      summary: Update a subscription
+      description: Updates the amount, schedule, or token of an existing subscription.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubscriptionRequest'
+      responses:
+        '200':
+          description: The updated subscription.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /v1/subscriptions/{subscription_id}/enable:
+    parameters:
+    - $ref: '#/components/parameters/SubscriptionId'
+    post:
+      operationId: enableSubscription
+      tags:
+      - Subscription
+      summary: Enable a subscription
+      description: Re-enables a previously disabled subscription.
+      responses:
+        '200':
+          description: Enable confirmation.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/subscriptions/{subscription_id}/disable:
+    parameters:
+    - $ref: '#/components/parameters/SubscriptionId'
+    post:
+      operationId: disableSubscription
+      tags:
+      - Subscription
+      summary: Disable a subscription
+      description: Pauses a subscription so no further charges are made until it is re-enabled.
+      responses:
+        '200':
+          description: Disable confirmation.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /v1/subscriptions/{subscription_id}/cancel:
+    parameters:
+    - $ref: '#/components/parameters/SubscriptionId'
+    post:
+      operationId: cancelSubscription
+      tags:
+      - Subscription
+      summary: Cancel a subscription
+      description: Permanently cancels a subscription.
+      responses:
+        '200':
+          description: Cancel confirmation.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    SubscriptionSchedule:
+      type: object
+      properties:
+        interval:
+          type: integer
+        interval_unit:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+        max_interval:
+          type: integer
+        start_time:
+          type: string
+    SubscriptionRequest:
+      type: object
+      required:
+      - name
+      - amount
+      - currency
+      - payment_type
+      - token
+      - schedule
+      properties:
+        name:
+          type: string
+        amount:
+          type: string
+        currency:
+          type: string
+          enum:
+          - IDR
+        payment_type:
+          type: string
+          enum:
+          - credit_card
+          - gopay
+        token:
+          type: string
+          description: Saved card token or GoPay token.
+        schedule:
+          $ref: '#/components/schemas/SubscriptionSchedule'
+        metadata:
+          type: object
+          additionalProperties: true
+        customer_details:
+          $ref: '#/components/schemas/CustomerDetails'
+    Subscription:
+      allOf:
+      - $ref: '#/components/schemas/SubscriptionRequest'
+      - type: object
+        properties:
+          id:
+            type: string
+          status:
+            type: string
+            enum:
+            - active
+            - inactive
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SubscriptionId:
+      name: subscription_id
+      in: path
+      required: true
+      description: The subscription identifier.
+      schema:
+        type: string
+  securitySchemes:
+    serverKeyAuth:
+      type: http
+      scheme: basic
+      description: 'HTTP Basic authentication. Your Server Key is the username and the password is empty, so the header is `Authorization: Basic base64(SERVER_KEY:)`. Iris disbursement uses the same HTTP Basic scheme but with its own creator / approver API key.'

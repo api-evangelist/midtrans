@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  title: Midtrans Payment Card Tokenization Snap API
+  description: 'A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.
+
+
+    Hosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.
+
+
+    Authentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.
+
+
+    This document was authored by API Evangelist from Midtrans'' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.'
+  version: '1.0'
+  contact:
+    name: Midtrans
+    url: https://midtrans.com
+  license:
+    name: Proprietary
+    url: https://midtrans.com
+servers:
+- url: https://api.midtrans.com
+  description: Core API / Payment Link / Subscription - Production
+- url: https://api.sandbox.midtrans.com
+  description: Core API / Payment Link / Subscription - Sandbox
+security:
+- serverKeyAuth: []
+tags:
+- name: Snap
+  description: Hosted / drop-in checkout session creation.
+paths:
+  /snap/v1/transactions:
+    servers:
+    - url: https://app.midtrans.com
+      description: Snap - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Snap - Sandbox
+    post:
+      operationId: createSnapTransaction
+      tags:
+      - Snap
+      summary: Create a Snap checkout transaction
+      description: Creates a Snap checkout session for the given order and returns a transaction `token` and a `redirect_url`. The token drives the Snap.js popup or the redirect page, which renders every payment method enabled for the merchant.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SnapRequest'
+      responses:
+        '201':
+          description: Snap token created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SnapResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    SnapRequest:
+      type: object
+      required:
+      - transaction_details
+      properties:
+        transaction_details:
+          $ref: '#/components/schemas/TransactionDetails'
+        item_details:
+          type: array
+          items:
+            $ref: '#/components/schemas/ItemDetail'
+        customer_details:
+          $ref: '#/components/schemas/CustomerDetails'
+        enabled_payments:
+          type: array
+          items:
+            type: string
+        credit_card:
+          type: object
+          additionalProperties: true
+    SnapResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        redirect_url:
+          type: string
+          format: uri
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+    ItemDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        name:
+          type: string
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+  securitySchemes:
+    serverKeyAuth:
+      type: http
+      scheme: basic
+      description: 'HTTP Basic authentication. Your Server Key is the username and the password is empty, so the header is `Authorization: Basic base64(SERVER_KEY:)`. Iris disbursement uses the same HTTP Basic scheme but with its own creator / approver API key.'

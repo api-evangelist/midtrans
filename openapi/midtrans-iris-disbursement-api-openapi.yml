@@ -1,0 +1,415 @@
+openapi: 3.0.3
+info:
+  title: Midtrans Payment Card Tokenization Iris Disbursement API
+  description: 'A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.
+
+
+    Hosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.
+
+
+    Authentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.
+
+
+    This document was authored by API Evangelist from Midtrans'' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.'
+  version: '1.0'
+  contact:
+    name: Midtrans
+    url: https://midtrans.com
+  license:
+    name: Proprietary
+    url: https://midtrans.com
+servers:
+- url: https://api.midtrans.com
+  description: Core API / Payment Link / Subscription - Production
+- url: https://api.sandbox.midtrans.com
+  description: Core API / Payment Link / Subscription - Sandbox
+security:
+- serverKeyAuth: []
+tags:
+- name: Iris Disbursement
+  description: Payouts, beneficiaries, balance, and account validation.
+paths:
+  /iris/api/v1/ping:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    get:
+      operationId: irisPing
+      tags:
+      - Iris Disbursement
+      summary: Ping Iris
+      description: Health check that returns "pong" when the Iris service is reachable.
+      responses:
+        '200':
+          description: Service is reachable.
+  /iris/api/v1/beneficiaries:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    get:
+      operationId: listBeneficiaries
+      tags:
+      - Iris Disbursement
+      summary: List beneficiaries
+      description: Lists saved beneficiaries for quick access on the payout page.
+      responses:
+        '200':
+          description: A list of beneficiaries.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Beneficiary'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createBeneficiary
+      tags:
+      - Iris Disbursement
+      summary: Create a beneficiary
+      description: Creates a new beneficiary (name, account, bank, alias_name, email).
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beneficiary'
+      responses:
+        '201':
+          description: The created beneficiary.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/beneficiaries/{alias_name}:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    parameters:
+    - name: alias_name
+      in: path
+      required: true
+      description: The beneficiary alias.
+      schema:
+        type: string
+    patch:
+      operationId: updateBeneficiary
+      tags:
+      - Iris Disbursement
+      summary: Update a beneficiary
+      description: Updates an existing beneficiary identified by its alias_name.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Beneficiary'
+      responses:
+        '200':
+          description: The updated beneficiary.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/payouts:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    post:
+      operationId: createPayouts
+      tags:
+      - Iris Disbursement
+      summary: Create payouts
+      description: Creates one or more payouts (Creator role). Each payout targets a bank account with an amount, notes, and a bank / account_number.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayoutRequest'
+      responses:
+        '201':
+          description: The created payouts.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/payouts/approve:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    post:
+      operationId: approvePayouts
+      tags:
+      - Iris Disbursement
+      summary: Approve payouts
+      description: Approves one or more requested payouts (Approver role) by reference_no.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayoutApproval'
+      responses:
+        '202':
+          description: The payouts were accepted for processing.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/payouts/reject:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    post:
+      operationId: rejectPayouts
+      tags:
+      - Iris Disbursement
+      summary: Reject payouts
+      description: Rejects one or more requested payouts (Approver role) with a reason.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayoutRejection'
+      responses:
+        '202':
+          description: The payouts were rejected.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/payouts/{reference_no}:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    parameters:
+    - name: reference_no
+      in: path
+      required: true
+      description: The payout reference number.
+      schema:
+        type: string
+    get:
+      operationId: getPayoutDetails
+      tags:
+      - Iris Disbursement
+      summary: Get payout details
+      description: Retrieves the details and status of a single payout by reference_no.
+      responses:
+        '200':
+          description: The payout details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payout'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /iris/api/v1/balance:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    get:
+      operationId: getBalance
+      tags:
+      - Iris Disbursement
+      summary: Get account balance
+      description: Returns the current Iris account balance available for disbursement.
+      responses:
+        '200':
+          description: The account balance.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balance:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/bank_accounts:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    get:
+      operationId: listBankAccounts
+      tags:
+      - Iris Disbursement
+      summary: List bank accounts
+      description: Lists the registered bank accounts (facilitator scheme).
+      responses:
+        '200':
+          description: A list of bank accounts.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /iris/api/v1/account_validation:
+    servers:
+    - url: https://app.midtrans.com
+      description: Iris - Production
+    - url: https://app.sandbox.midtrans.com
+      description: Iris - Sandbox
+    get:
+      operationId: validateBankAccount
+      tags:
+      - Iris Disbursement
+      summary: Validate a bank account
+      description: Validates a bank account number and returns the registered account holder name.
+      parameters:
+      - name: bank
+        in: query
+        required: true
+        description: Bank code (e.g. bca, mandiri).
+        schema:
+          type: string
+      - name: account
+        in: query
+        required: true
+        description: The destination account number.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The validated account holder.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account_no:
+                    type: string
+                  account_name:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    PayoutApproval:
+      type: object
+      required:
+      - reference_nos
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        otp:
+          type: string
+    PayoutResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payout'
+    PayoutRequest:
+      type: object
+      required:
+      - payouts
+      properties:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayoutItem'
+    PayoutRejection:
+      type: object
+      required:
+      - reference_nos
+      - reject_reason
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        reject_reason:
+          type: string
+    Payout:
+      type: object
+      properties:
+        status:
+          type: string
+        reference_no:
+          type: string
+        amount:
+          type: string
+        beneficiary_name:
+          type: string
+        bank:
+          type: string
+        account:
+          type: string
+    Beneficiary:
+      type: object
+      properties:
+        name:
+          type: string
+        account:
+          type: string
+        bank:
+          type: string
+        alias_name:
+          type: string
+        email:
+          type: string
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+    PayoutItem:
+      type: object
+      required:
+      - beneficiary_name
+      - beneficiary_account
+      - beneficiary_bank
+      - amount
+      properties:
+        beneficiary_name:
+          type: string
+        beneficiary_account:
+          type: string
+        beneficiary_bank:
+          type: string
+        beneficiary_email:
+          type: string
+        amount:
+          type: string
+        notes:
+          type: string
+  securitySchemes:
+    serverKeyAuth:
+      type: http
+      scheme: basic
+      description: 'HTTP Basic authentication. Your Server Key is the username and the password is empty, so the header is `Authorization: Basic base64(SERVER_KEY:)`. Iris disbursement uses the same HTTP Basic scheme but with its own creator / approver API key.'
