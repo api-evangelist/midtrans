@@ -1,0 +1,26 @@
+{
+  "provider": "midtrans",
+  "sources": [
+    "midtrans-card-tokenization-api-openapi.yml",
+    "midtrans-core-api-api-openapi.yml",
+    "midtrans-gopay-tokenization-api-openapi.yml",
+    "midtrans-iris-disbursement-api-openapi.yml",
+    "midtrans-payment-link-api-openapi.yml",
+    "midtrans-snap-api-openapi.yml",
+    "midtrans-subscription-api-openapi.yml"
+  ],
+  "outputs": [
+    "midtrans-card-tokenization-api-openapi.yml",
+    "midtrans-core-api-api-openapi.yml",
+    "midtrans-gopay-tokenization-api-openapi.yml",
+    "midtrans-iris-disbursement-api-openapi.yml",
+    "midtrans-payment-link-api-openapi.yml",
+    "midtrans-snap-api-openapi.yml",
+    "midtrans-subscription-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
