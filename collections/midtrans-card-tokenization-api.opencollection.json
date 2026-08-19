@@ -1,0 +1,103 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Card Tokenization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a one-time card token",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v2/token",
+            "params": [
+              {
+                "name": "client_key",
+                "value": "",
+                "type": "query",
+                "description": "The merchant's public Client Key."
+              },
+              {
+                "name": "card_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_exp_month",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_exp_year",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_cvv",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "token_id",
+                "value": "",
+                "type": "query",
+                "description": "A previously saved token to re-tokenize with a CVV."
+              }
+            ]
+          },
+          "docs": "Exchanges raw card data (or a saved `token_id`) for a one-time `token_id` used by the Core API charge. Authenticated with the public Client Key passed as the `client_key` query parameter - this endpoint is called from the browser so raw PAN never touches the merchant server."
+        },
+        {
+          "info": {
+            "name": "Register (save) a card",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v2/card/register",
+            "params": [
+              {
+                "name": "client_key",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_number",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_exp_month",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "card_exp_year",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Registers a card for one-click / two-click and recurring use, returning a `saved_token_id`. Authenticated with the public Client Key query parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

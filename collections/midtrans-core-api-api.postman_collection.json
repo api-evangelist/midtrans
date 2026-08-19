@@ -1,0 +1,1372 @@
+{
+  "item": [
+    {
+      "id": "5ae941c1-e7e4-4d58-9dec-dea12861a3a5",
+      "name": "Core API",
+      "description": {
+        "content": "Charge and manage the lifecycle of a transaction.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8f9f65c5-b3fa-4b5a-98bf-92f40f3fd805",
+          "name": "Charge a transaction",
+          "request": {
+            "name": "Charge a transaction",
+            "description": {
+              "content": "Performs a charge for the chosen `payment_type`. Supported types include credit_card, bank_transfer (Permata / BCA / BNI / BRI virtual account), echannel (Mandiri Bill), gopay, shopeepay, qris, cstore (Indomaret / Alfamart), akulaku, and more. The response carries a `transaction_status` plus method-specific payment instructions (VA number, QR string, deeplink, or redirect URL).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "charge"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payment_type\": \"<string>\",\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"bank_transfer\": {\n    \"bank\": \"<string>\"\n  },\n  \"credit_card\": {\n    \"token_id\": \"<string>\",\n    \"authentication\": \"<boolean>\",\n    \"save_token_id\": \"<boolean>\"\n  },\n  \"gopay\": {\n    \"key_0\": false,\n    \"key_1\": 6178\n  },\n  \"shopeepay\": {\n    \"key_0\": 9316.205431527767,\n    \"key_1\": 3119.030934157947,\n    \"key_2\": false\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3e0d8054-7b37-4d18-a8b7-375a9d4eff66",
+              "name": "Charge accepted (status may be pending, capture, or settlement).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_type\": \"<string>\",\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"bank_transfer\": {\n    \"bank\": \"<string>\"\n  },\n  \"credit_card\": {\n    \"token_id\": \"<string>\",\n    \"authentication\": \"<boolean>\",\n    \"save_token_id\": \"<boolean>\"\n  },\n  \"gopay\": {\n    \"key_0\": \"string\"\n  },\n  \"shopeepay\": {\n    \"key_0\": 4172,\n    \"key_1\": 5337.870406528481,\n    \"key_2\": \"string\",\n    \"key_3\": 2561.619261019925\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://HjQhMkKeaMZJvWoCPRKApzjmfuu.bxlqlTECTNrZXDJiEhT62eHDcMMMX9nRvgA0ClRMpPYsGxH,5oe,gF3guqM4\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://qCXFipSdYgHOGOXSWejiyPitNMZo.xjSypvu-K-xWEfRnx77,p4ntYs9xZk\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eceb9299-c7aa-42a0-88e0-318bbbcccd48",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "charge"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payment_type\": \"<string>\",\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"bank_transfer\": {\n    \"bank\": \"<string>\"\n  },\n  \"credit_card\": {\n    \"token_id\": \"<string>\",\n    \"authentication\": \"<boolean>\",\n    \"save_token_id\": \"<boolean>\"\n  },\n  \"gopay\": {\n    \"key_0\": \"string\"\n  },\n  \"shopeepay\": {\n    \"key_0\": 4172,\n    \"key_1\": 5337.870406528481,\n    \"key_2\": \"string\",\n    \"key_3\": 2561.619261019925\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a587d204-39dd-4dc4-a4fe-2bbdfa6e503b",
+          "name": "Get transaction status",
+          "request": {
+            "name": "Get transaction status",
+            "description": {
+              "content": "Retrieves the latest status of a transaction by order_id or transaction_id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "status"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "970486e1-89b3-42c1-9f48-4ada5cf145b3",
+              "name": "The transaction status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5217ffee-4526-45ba-873f-b62897dc7f6f",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8fa0a07c-3de1-4761-b098-ab8cc28755e1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "status"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "077371a3-4c99-4ce9-8be3-eeb62d4d894e",
+          "name": "Approve a challenged transaction",
+          "request": {
+            "name": "Approve a challenged transaction",
+            "description": {
+              "content": "Approves a card transaction that the fraud engine flagged with a challenge status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "approve"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "099adf9b-5a80-4ac8-9180-7307f1e6e02b",
+              "name": "The transaction was approved.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79cec090-237b-4cf2-8623-f753ec7c6c58",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "05386426-f764-4e4e-8fdd-9e981481cb04",
+          "name": "Deny a challenged transaction",
+          "request": {
+            "name": "Deny a challenged transaction",
+            "description": {
+              "content": "Denies a card transaction that the fraud engine flagged with a challenge status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "deny"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "02f3f75d-6001-4a20-9a23-1cf42814e302",
+              "name": "The transaction was denied.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "deny"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f7b14a09-05a8-4365-b881-5d82c0d4bc8c",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "deny"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5681962e-9474-48bb-a633-54d2e94d90ea",
+          "name": "Cancel a transaction",
+          "request": {
+            "name": "Cancel a transaction",
+            "description": {
+              "content": "Cancels a transaction before it settles.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ddda11b8-5f97-4086-8d43-e3b51f06aa0d",
+              "name": "The transaction was cancelled.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cab97c3-76e7-4f2b-b7af-97721680c4f7",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d47be9b-398c-49ff-87bf-cfcb56312f5c",
+          "name": "Expire a pending transaction",
+          "request": {
+            "name": "Expire a pending transaction",
+            "description": {
+              "content": "Immediately expires a pending transaction so it can no longer be paid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "expire"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "958b0cc8-0c59-42c5-907f-f421c02b6e6e",
+              "name": "The transaction was expired.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "expire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2aba7d0f-9731-4ea5-a90e-3bb14352a318",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "expire"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5b6e6506-28a6-4fe4-b7d9-c69dd8de5622",
+          "name": "Refund a transaction",
+          "request": {
+            "name": "Refund a transaction",
+            "description": {
+              "content": "Refunds a settled transaction, fully or partially.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b11d21e3-335c-4796-8295-7e810c784279",
+              "name": "The refund result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "19413cd4-bf71-4118-8dea-bcbe54f00771",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ae6f3e99-345b-41b7-9a24-6be387d86340",
+          "name": "Online direct refund",
+          "request": {
+            "name": "Online direct refund",
+            "description": {
+              "content": "Performs a direct (online) refund for supported payment channels (e.g. GoPay, QRIS, ShopeePay), returning funds without the standard refund settlement window.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                ":order_id",
+                "refund",
+                "online",
+                "direct"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1ecf28a8-bf5b-40c7-9081-887abce9ae0f",
+              "name": "The direct refund result.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "refund",
+                    "online",
+                    "direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"transaction_id\": \"string\",\n  \"order_id\": \"string\",\n  \"gross_amount\": \"string\",\n  \"payment_type\": \"string\",\n  \"transaction_time\": \"string\",\n  \"transaction_status\": \"failure\",\n  \"fraud_status\": \"challenge\",\n  \"va_numbers\": [\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    },\n    {\n      \"bank\": \"string\",\n      \"va_number\": \"string\"\n    }\n  ],\n  \"actions\": [\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"https://IDGgPkqbzC.ggmvaiGWLBwhmuHMHd6olM42QW5oqrJWq+17.gpZfxaqp3XYVhBltBN+S\"\n    },\n    {\n      \"name\": \"string\",\n      \"method\": \"string\",\n      \"url\": \"http://sVwSofOPloegdTAiwVICkrdszgJnP.kmcPHpwnKbyF\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f7a5be0-6bfe-4f0d-9d1b-a4be156c3fef",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    ":order_id",
+                    "refund",
+                    "online",
+                    "direct"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"refund_key\": \"<string>\",\n  \"amount\": \"<integer>\",\n  \"reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.midtrans.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b3386bf4-bf93-4511-9028-07e97a4e1c29",
+    "name": "Midtrans Payment Card Tokenization Core API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.\n\nHosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.\n\nAuthentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.\n\nThis document was authored by API Evangelist from Midtrans' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.\n\nContact Support:\n Name: Midtrans",
+      "type": "text/plain"
+    }
+  }
+}

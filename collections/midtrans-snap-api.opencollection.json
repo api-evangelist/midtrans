@@ -1,0 +1,40 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization Snap API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Snap",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a Snap checkout transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/snap/v1/transactions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a Snap checkout session for the given order and returns a transaction `token` and a `redirect_url`. The token drives the Snap.js popup or the redirect page, which renders every payment method enabled for the merchant."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

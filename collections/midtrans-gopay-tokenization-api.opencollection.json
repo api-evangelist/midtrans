@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization GoPay Tokenization API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "GoPay Tokenization",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create (link) a GoPay pay account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/pay/account",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Links a customer's GoPay account by phone number and returns activation actions plus an `account_id`. The account status progresses through PENDING, ENABLED, EXPIRED, and DISABLED."
+        },
+        {
+          "info": {
+            "name": "Get a GoPay pay account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v2/pay/account/:account_id",
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "The linked pay account identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a linked GoPay account's status and available payment tokens."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

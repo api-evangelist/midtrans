@@ -1,0 +1,196 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization Iris Disbursement API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Iris Disbursement",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Ping Iris",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/ping"
+          },
+          "docs": "Health check that returns \"pong\" when the Iris service is reachable."
+        },
+        {
+          "info": {
+            "name": "List beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/beneficiaries"
+          },
+          "docs": "Lists saved beneficiaries for quick access on the payout page."
+        },
+        {
+          "info": {
+            "name": "Create a beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/iris/api/v1/beneficiaries",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new beneficiary (name, account, bank, alias_name, email)."
+        },
+        {
+          "info": {
+            "name": "Update a beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.midtrans.com/iris/api/v1/beneficiaries/:alias_name",
+            "params": [
+              {
+                "name": "alias_name",
+                "value": "",
+                "type": "path",
+                "description": "The beneficiary alias."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing beneficiary identified by its alias_name."
+        },
+        {
+          "info": {
+            "name": "Create payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/iris/api/v1/payouts",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates one or more payouts (Creator role). Each payout targets a bank account with an amount, notes, and a bank / account_number."
+        },
+        {
+          "info": {
+            "name": "Approve payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/iris/api/v1/payouts/approve",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Approves one or more requested payouts (Approver role) by reference_no."
+        },
+        {
+          "info": {
+            "name": "Reject payouts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/iris/api/v1/payouts/reject",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Rejects one or more requested payouts (Approver role) with a reason."
+        },
+        {
+          "info": {
+            "name": "Get payout details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/payouts/:reference_no",
+            "params": [
+              {
+                "name": "reference_no",
+                "value": "",
+                "type": "path",
+                "description": "The payout reference number."
+              }
+            ]
+          },
+          "docs": "Retrieves the details and status of a single payout by reference_no."
+        },
+        {
+          "info": {
+            "name": "Get account balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/balance"
+          },
+          "docs": "Returns the current Iris account balance available for disbursement."
+        },
+        {
+          "info": {
+            "name": "List bank accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/bank_accounts"
+          },
+          "docs": "Lists the registered bank accounts (facilitator scheme)."
+        },
+        {
+          "info": {
+            "name": "Validate a bank account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/iris/api/v1/account_validation",
+            "params": [
+              {
+                "name": "bank",
+                "value": "",
+                "type": "query",
+                "description": "Bank code (e.g. bca, mandiri)."
+              },
+              {
+                "name": "account",
+                "value": "",
+                "type": "query",
+                "description": "The destination account number."
+              }
+            ]
+          },
+          "docs": "Validates a bank account number and returns the registered account holder name."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

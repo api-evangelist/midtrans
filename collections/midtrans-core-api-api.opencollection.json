@@ -1,0 +1,181 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization Core API API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Core API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Charge a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/charge",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a charge for the chosen `payment_type`. Supported types include credit_card, bank_transfer (Permata / BCA / BNI / BRI virtual account), echannel (Mandiri Bill), gopay, shopeepay, qris, cstore (Indomaret / Alfamart), akulaku, and more. The response carries a `transaction_status` plus method-specific payment instructions (VA number, QR string, deeplink, or redirect URL)."
+        },
+        {
+          "info": {
+            "name": "Get transaction status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v2/:order_id/status",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Retrieves the latest status of a transaction by order_id or transaction_id."
+        },
+        {
+          "info": {
+            "name": "Approve a challenged transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/approve",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Approves a card transaction that the fraud engine flagged with a challenge status."
+        },
+        {
+          "info": {
+            "name": "Deny a challenged transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/deny",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Denies a card transaction that the fraud engine flagged with a challenge status."
+        },
+        {
+          "info": {
+            "name": "Cancel a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/cancel",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Cancels a transaction before it settles."
+        },
+        {
+          "info": {
+            "name": "Expire a pending transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/expire",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Immediately expires a pending transaction so it can no longer be paid."
+        },
+        {
+          "info": {
+            "name": "Refund a transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/refund",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Refunds a settled transaction, fully or partially."
+        },
+        {
+          "info": {
+            "name": "Online direct refund",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v2/:order_id/refund/online/direct",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Performs a direct (online) refund for supported payment channels (e.g. GoPay, QRIS, ShopeePay), returning funds without the standard refund settlement window."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

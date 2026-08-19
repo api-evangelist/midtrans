@@ -1,0 +1,78 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization Payment Link API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payment Link",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a payment link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v1/payment-links",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a shareable hosted payment page for an order."
+        },
+        {
+          "info": {
+            "name": "Get payment link details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v1/payment-links/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Retrieves the details and payment status of a payment link."
+        },
+        {
+          "info": {
+            "name": "Delete a payment link",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.midtrans.com/v1/payment-links/:order_id",
+            "params": [
+              {
+                "name": "order_id",
+                "value": "",
+                "type": "path",
+                "description": "The merchant order_id (or Midtrans transaction_id) of the transaction."
+              }
+            ]
+          },
+          "docs": "Deletes a payment link so it can no longer be paid."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

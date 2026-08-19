@@ -1,0 +1,1740 @@
+{
+  "item": [
+    {
+      "id": "c2aae011-37a2-43ae-b3db-3cffe28cb267",
+      "name": "Iris Disbursement",
+      "description": {
+        "content": "Payouts, beneficiaries, balance, and account validation.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "577bfd3e-5e2c-4300-8aa0-87f47c5188d8",
+          "name": "Ping Iris",
+          "request": {
+            "name": "Ping Iris",
+            "description": {
+              "content": "Health check that returns \"pong\" when the Iris service is reachable.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "ping"
+              ],
+              "host": [
+                "{{iris-api-v1-ping-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d0c5a5d4-66ca-4906-b910-1a0380f28b61",
+              "name": "Service is reachable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "ping"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-ping-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0dfcb807-3932-4e46-b974-b9e046e3bbc7",
+          "name": "List beneficiaries",
+          "request": {
+            "name": "List beneficiaries",
+            "description": {
+              "content": "Lists saved beneficiaries for quick access on the payout page.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{iris-api-v1-beneficiaries-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e1914b5-622a-48a7-beaa-f7e394299fe8",
+              "name": "A list of beneficiaries.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"name\": \"string\",\n    \"account\": \"string\",\n    \"bank\": \"string\",\n    \"alias_name\": \"string\",\n    \"email\": \"string\"\n  },\n  {\n    \"name\": \"string\",\n    \"account\": \"string\",\n    \"bank\": \"string\",\n    \"alias_name\": \"string\",\n    \"email\": \"string\"\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "56f31167-2da4-4fc8-94a5-b78a541605b4",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b684e47f-4ce3-4bac-97c1-998d6390fd4c",
+          "name": "Create a beneficiary",
+          "request": {
+            "name": "Create a beneficiary",
+            "description": {
+              "content": "Creates a new beneficiary (name, account, bank, alias_name, email).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "beneficiaries"
+              ],
+              "host": [
+                "{{iris-api-v1-beneficiaries-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3dd567ce-d6c0-416d-8367-273e96d8e840",
+              "name": "The created beneficiary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "30b63072-01f6-4968-99ce-32b21b59be42",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "24b01828-62cd-4f7e-b973-3f7aca06cec2",
+          "name": "Update a beneficiary",
+          "request": {
+            "name": "Update a beneficiary",
+            "description": {
+              "content": "Updates an existing beneficiary identified by its alias_name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "beneficiaries",
+                ":alias_name"
+              ],
+              "host": [
+                "{{iris-api-v1-beneficiaries-alias_name-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "alias_name",
+                  "description": "(Required) The beneficiary alias."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "76eebf1e-655e-4e59-928c-054ead28cdc4",
+              "name": "The updated beneficiary.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries",
+                    ":alias_name"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-alias_name-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alias_name",
+                      "description": "(Required) The beneficiary alias."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8054769-8419-41dd-bfab-f6d003b84972",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "beneficiaries",
+                    ":alias_name"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-beneficiaries-alias_name-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "alias_name",
+                      "description": "(Required) The beneficiary alias."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"account\": \"<string>\",\n  \"bank\": \"<string>\",\n  \"alias_name\": \"<string>\",\n  \"email\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64e870dd-81c8-4e40-8c6d-db64a6a3484c",
+          "name": "Create payouts",
+          "request": {
+            "name": "Create payouts",
+            "description": {
+              "content": "Creates one or more payouts (Creator role). Each payout targets a bank account with an amount, notes, and a bank / account_number.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "payouts"
+              ],
+              "host": [
+                "{{iris-api-v1-payouts-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b720fe5e-1259-4556-9234-2e696738c273",
+              "name": "The created payouts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"payouts\": [\n    {\n      \"status\": \"string\",\n      \"reference_no\": \"string\",\n      \"amount\": \"string\",\n      \"beneficiary_name\": \"string\",\n      \"bank\": \"string\",\n      \"account\": \"string\"\n    },\n    {\n      \"status\": \"string\",\n      \"reference_no\": \"string\",\n      \"amount\": \"string\",\n      \"beneficiary_name\": \"string\",\n      \"bank\": \"string\",\n      \"account\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "39af94b1-e0a7-4b5a-967a-20f109dbe9e3",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"payouts\": [\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    },\n    {\n      \"beneficiary_name\": \"<string>\",\n      \"beneficiary_account\": \"<string>\",\n      \"beneficiary_bank\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"beneficiary_email\": \"<string>\",\n      \"notes\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "814dd203-3327-45d6-8a92-68028adf5afc",
+          "name": "Approve payouts",
+          "request": {
+            "name": "Approve payouts",
+            "description": {
+              "content": "Approves one or more requested payouts (Approver role) by reference_no.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "payouts",
+                "approve"
+              ],
+              "host": [
+                "{{iris-api-v1-payouts-approve-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"otp\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7d9e291e-9f64-451a-b0d5-e8a749956b93",
+              "name": "The payouts were accepted for processing.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-approve-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"otp\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a2856691-3614-4a88-8ff3-871a28e046f5",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    "approve"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-approve-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"otp\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "231a13df-87d4-4bca-ba0c-d9752cc8da85",
+          "name": "Reject payouts",
+          "request": {
+            "name": "Reject payouts",
+            "description": {
+              "content": "Rejects one or more requested payouts (Approver role) with a reason.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "payouts",
+                "reject"
+              ],
+              "host": [
+                "{{iris-api-v1-payouts-reject-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reject_reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0c37a903-76d4-4545-9dcc-663f314f48d5",
+              "name": "The payouts were rejected.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-reject-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reject_reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d6fc874-f37b-4381-80eb-aac2b4bf37ae",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    "reject"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-reject-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reference_nos\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"reject_reason\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38af1d75-e412-4d57-8fbd-b9e8a58744c7",
+          "name": "Get payout details",
+          "request": {
+            "name": "Get payout details",
+            "description": {
+              "content": "Retrieves the details and status of a single payout by reference_no.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "payouts",
+                ":reference_no"
+              ],
+              "host": [
+                "{{iris-api-v1-payouts-reference_no-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "reference_no",
+                  "description": "(Required) The payout reference number."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "202820fc-ad90-499a-99e1-d042252c1453",
+              "name": "The payout details.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    ":reference_no"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-reference_no-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference_no",
+                      "description": "(Required) The payout reference number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"reference_no\": \"string\",\n  \"amount\": \"string\",\n  \"beneficiary_name\": \"string\",\n  \"bank\": \"string\",\n  \"account\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e198bac4-e4c8-492b-85f3-612027eb7579",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    ":reference_no"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-reference_no-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference_no",
+                      "description": "(Required) The payout reference number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd2c22ee-7f76-455a-ab3a-152bfaa82433",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "payouts",
+                    ":reference_no"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-payouts-reference_no-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "reference_no",
+                      "description": "(Required) The payout reference number."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9429559b-239a-409c-867a-cdd57ca57193",
+          "name": "Get account balance",
+          "request": {
+            "name": "Get account balance",
+            "description": {
+              "content": "Returns the current Iris account balance available for disbursement.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "balance"
+              ],
+              "host": [
+                "{{iris-api-v1-balance-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a8aad59b-c614-4fc9-9299-4a4a25c24cf1",
+              "name": "The account balance.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-balance-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"balance\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "daf087aa-4687-45b2-af29-67a7e496efe1",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "balance"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-balance-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c9e73856-6f90-4577-844f-64e685b22173",
+          "name": "List bank accounts",
+          "request": {
+            "name": "List bank accounts",
+            "description": {
+              "content": "Lists the registered bank accounts (facilitator scheme).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "bank_accounts"
+              ],
+              "host": [
+                "{{iris-api-v1-bank_accounts-Url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e6b8b74f-39be-4529-9761-e568f97262d3",
+              "name": "A list of bank accounts.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "bank_accounts"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-bank_accounts-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e891c56-ce4e-4f70-9fd9-b3cbadc40b92",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "bank_accounts"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-bank_accounts-Url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b345c58-f85e-4dd9-866e-b55a4bbf2219",
+          "name": "Validate a bank account",
+          "request": {
+            "name": "Validate a bank account",
+            "description": {
+              "content": "Validates a bank account number and returns the registered account holder name.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "iris",
+                "api",
+                "v1",
+                "account_validation"
+              ],
+              "host": [
+                "{{iris-api-v1-account_validation-Url}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "bank",
+                  "value": "<string>",
+                  "description": "(Required) Bank code (e.g. bca, mandiri)."
+                },
+                {
+                  "disabled": false,
+                  "key": "account",
+                  "value": "<string>",
+                  "description": "(Required) The destination account number."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "746c2f75-9d4f-4170-aff3-bf504a1fbe51",
+              "name": "The validated account holder.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "account_validation"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-account_validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"account_no\": \"string\",\n  \"account_name\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a442243c-81cd-4b85-8d86-dba437265270",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "iris",
+                    "api",
+                    "v1",
+                    "account_validation"
+                  ],
+                  "host": [
+                    "{{iris-api-v1-account_validation-Url}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "bank",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "account",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.midtrans.com",
+      "key": "baseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-ping-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-beneficiaries-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-beneficiaries-alias_name-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-payouts-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-payouts-approve-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-payouts-reject-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-payouts-reference_no-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-balance-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-bank_accounts-Url"
+    },
+    {
+      "type": "string",
+      "value": "https://app.midtrans.com",
+      "key": "iris-api-v1-account_validation-Url"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "79cbac4d-4aeb-47c3-9091-49596c748332",
+    "name": "Midtrans Payment Card Tokenization Iris Disbursement API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.\n\nHosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.\n\nAuthentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.\n\nThis document was authored by API Evangelist from Midtrans' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.\n\nContact Support:\n Name: Midtrans",
+      "type": "text/plain"
+    }
+  }
+}

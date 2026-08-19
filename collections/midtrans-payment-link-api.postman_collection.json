@@ -1,0 +1,602 @@
+{
+  "item": [
+    {
+      "id": "53417cd6-cf0f-418f-93bc-0953f11ae280",
+      "name": "Payment Link",
+      "description": {
+        "content": "Create, read, and delete shareable payment links.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5e09ba0e-4681-4bfe-abae-0cb73408f1ca",
+          "name": "Create a payment link",
+          "request": {
+            "name": "Create a payment link",
+            "description": {
+              "content": "Creates a shareable hosted payment page for an order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"usage_limit\": \"<integer>\",\n  \"expiry\": {\n    \"key_0\": false,\n    \"key_1\": 8320.722463536289\n  },\n  \"enabled_payments\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ee1239db-be96-40e0-a60a-d166fe32e52e",
+              "name": "The created payment link.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"usage_limit\": \"<integer>\",\n  \"expiry\": {\n    \"key_0\": 6198.686530550126,\n    \"key_1\": 9285.19836358204\n  },\n  \"enabled_payments\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": \"string\",\n  \"payment_url\": \"https://yycbrWMwqknPTUtalaGhpuJxSOTdhc.advao-6wNJFUsbAdtI+Wurclip9NGfLRES410,YRZlUnXMAnueAtDd9xh.ULO9grRfQiz.pfQWxKeIZjeper\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "603141e6-2204-4f4f-ab10-0bd2bd0ba518",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"transaction_details\": {\n    \"order_id\": \"<string>\",\n    \"gross_amount\": \"<integer>\"\n  },\n  \"item_details\": [\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"price\": \"<integer>\",\n      \"quantity\": \"<integer>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"usage_limit\": \"<integer>\",\n  \"expiry\": {\n    \"key_0\": 6198.686530550126,\n    \"key_1\": 9285.19836358204\n  },\n  \"enabled_payments\": [\n    \"<string>\",\n    \"<string>\"\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "104cea7b-4a08-4ed4-81a7-882a856c1b2f",
+          "name": "Get payment link details",
+          "request": {
+            "name": "Get payment link details",
+            "description": {
+              "content": "Retrieves the details and payment status of a payment link.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-links",
+                ":order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "85f9578f-7e43-4b4f-bd44-e0d7219d3b3e",
+              "name": "The payment link.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"order_id\": \"string\",\n  \"payment_url\": \"https://yycbrWMwqknPTUtalaGhpuJxSOTdhc.advao-6wNJFUsbAdtI+Wurclip9NGfLRES410,YRZlUnXMAnueAtDd9xh.ULO9grRfQiz.pfQWxKeIZjeper\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "21c44268-0b02-47f1-b297-77225712f663",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "311e689b-6ea6-413f-8511-e80aed826134",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "040d4b36-fa76-4e44-b8b6-0ec737de2677",
+          "name": "Delete a payment link",
+          "request": {
+            "name": "Delete a payment link",
+            "description": {
+              "content": "Deletes a payment link so it can no longer be paid.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "payment-links",
+                ":order_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7610985e-82d2-490d-8abb-dd8d16d8261f",
+              "name": "Deletion confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6d4d2e3a-9cb8-42ff-a17b-c1ab9a100e24",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d702770a-6219-43ca-9d93-5df282a1fc7f",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "payment-links",
+                    ":order_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) The merchant order_id (or Midtrans transaction_id) of the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.midtrans.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "97277913-7376-40fe-94b4-7d6edf69861e",
+    "name": "Midtrans Payment Card Tokenization Payment Link API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.\n\nHosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.\n\nAuthentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.\n\nThis document was authored by API Evangelist from Midtrans' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.\n\nContact Support:\n Name: Midtrans",
+      "type": "text/plain"
+    }
+  }
+}

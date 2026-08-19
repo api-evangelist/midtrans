@@ -1,0 +1,1093 @@
+{
+  "item": [
+    {
+      "id": "401567ce-fbdc-4b3f-bb37-a403323ffd6e",
+      "name": "Subscription",
+      "description": {
+        "content": "Recurring / subscription billing.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4ef7d168-2968-48e4-89be-cffe73e5c07a",
+          "name": "Create a subscription",
+          "request": {
+            "name": "Create a subscription",
+            "description": {
+              "content": "Creates a recurring subscription against a saved card or GoPay token, with an amount, currency, payment_type, token, and a schedule (interval, interval_unit, start_time, max_interval).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e0a7f895-05f7-4126-85cf-4167b15cd057",
+              "name": "The created subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"id\": \"string\",\n  \"status\": \"inactive\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c73186fa-c726-47bc-a331-0b005b9beebe",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "11666aad-29ae-4730-9402-16ccf5ac8c7e",
+          "name": "Get a subscription",
+          "request": {
+            "name": "Get a subscription",
+            "description": {
+              "content": "Retrieves a subscription by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions",
+                ":subscription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) The subscription identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "4f982f07-cdd7-403e-b751-b1803d49125d",
+              "name": "The subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"id\": \"string\",\n  \"status\": \"inactive\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eea79307-598f-4087-9183-f13f1a4740cb",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e13e701-480e-48a8-8c3c-cace2482fc02",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "727ce204-e03e-4b47-a7be-851842f07e29",
+          "name": "Update a subscription",
+          "request": {
+            "name": "Update a subscription",
+            "description": {
+              "content": "Updates the amount, schedule, or token of an existing subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions",
+                ":subscription_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) The subscription identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e47d1c2b-e8f6-42f2-adc0-bd88cc189f29",
+              "name": "The updated subscription.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": \"string\"\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  },\n  \"id\": \"string\",\n  \"status\": \"inactive\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4482225e-c138-4c43-b128-593641736ba0",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "42dd157c-485e-4545-b70f-c3a81fa6ded9",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"amount\": \"<string>\",\n  \"currency\": \"<string>\",\n  \"payment_type\": \"<string>\",\n  \"token\": \"<string>\",\n  \"schedule\": {\n    \"interval\": \"<integer>\",\n    \"interval_unit\": \"<string>\",\n    \"max_interval\": \"<integer>\",\n    \"start_time\": \"<string>\"\n  },\n  \"metadata\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"customer_details\": {\n    \"first_name\": \"<string>\",\n    \"last_name\": \"<string>\",\n    \"email\": \"<string>\",\n    \"phone\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4bd221df-b301-465e-8be1-fc88d4276660",
+          "name": "Enable a subscription",
+          "request": {
+            "name": "Enable a subscription",
+            "description": {
+              "content": "Re-enables a previously disabled subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions",
+                ":subscription_id",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) The subscription identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "300943e2-2217-4b7f-a5f3-f21e696152d0",
+              "name": "Enable confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c81a51cb-d4ee-4bc5-91f9-cf98aa32033e",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "636ea39c-229b-49e8-adb8-c28c11a2e3d9",
+          "name": "Disable a subscription",
+          "request": {
+            "name": "Disable a subscription",
+            "description": {
+              "content": "Pauses a subscription so no further charges are made until it is re-enabled.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions",
+                ":subscription_id",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) The subscription identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b8040798-def1-41a4-b7ac-9bd88467e2cd",
+              "name": "Disable confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1b610711-f8ec-42e6-9bec-ff17915459fd",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16b8f990-393a-458a-9a69-6dd9d1f8b12f",
+          "name": "Cancel a subscription",
+          "request": {
+            "name": "Cancel a subscription",
+            "description": {
+              "content": "Permanently cancels a subscription.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "subscriptions",
+                ":subscription_id",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "subscription_id",
+                  "description": "(Required) The subscription identifier."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "378d99b4-3e6c-4ca3-a679-9a2b5dccbc30",
+              "name": "Cancel confirmation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c6aa77df-e3c4-4f83-97c3-2d6867154ac4",
+              "name": "Missing or invalid credentials.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "subscriptions",
+                    ":subscription_id",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "subscription_id",
+                      "description": "(Required) The subscription identifier."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status_code\": \"string\",\n  \"status_message\": \"string\",\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.midtrans.com",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "basic",
+    "basic": [
+      {
+        "key": "username",
+        "value": "{{basicAuthUsername}}"
+      },
+      {
+        "key": "password",
+        "value": "{{basicAuthPassword}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da1d3fea-0f76-47aa-9964-156db7f2c855",
+    "name": "Midtrans Payment Card Tokenization Subscription API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "A representative OpenAPI description of the Midtrans payment platform, an Indonesian payment gateway (part of the GoTo Group). It covers Snap (hosted checkout), the Core API (charge and transaction lifecycle), card and GoPay tokenization, Payment Link, recurring Subscriptions, and Iris disbursement / payouts.\n\nHosts vary by product. The default servers below are the Core API / Payment Link / Subscription hosts (api.midtrans.com and api.sandbox.midtrans.com). Snap runs on app.midtrans.com and Iris runs on app.midtrans.com/iris; those paths declare their own path-level `servers` override so the full URL is always unambiguous.\n\nAuthentication is HTTP Basic: your Server Key is the username and the password is empty (`Authorization: Basic base64(SERVER_KEY:)`). The two card tokenization endpoints instead use the public Client Key passed as a query parameter, and Iris uses its own creator / approver API key over HTTP Basic.\n\nThis document was authored by API Evangelist from Midtrans' public documentation and official Postman collection; request / response bodies are modeled representatively rather than exhaustively.\n\nContact Support:\n Name: Midtrans",
+      "type": "text/plain"
+    }
+  }
+}

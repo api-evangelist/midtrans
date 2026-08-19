@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Midtrans Payment Card Tokenization Subscription API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "basic",
+      "username": "{{username}}",
+      "password": "{{password}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscription",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v1/subscriptions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a recurring subscription against a saved card or GoPay token, with an amount, currency, payment_type, token, and a schedule (interval, interval_unit, start_time, max_interval)."
+        },
+        {
+          "info": {
+            "name": "Get a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.midtrans.com/v1/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path",
+                "description": "The subscription identifier."
+              }
+            ]
+          },
+          "docs": "Retrieves a subscription by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.midtrans.com/v1/subscriptions/:subscription_id",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path",
+                "description": "The subscription identifier."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates the amount, schedule, or token of an existing subscription."
+        },
+        {
+          "info": {
+            "name": "Enable a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v1/subscriptions/:subscription_id/enable",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path",
+                "description": "The subscription identifier."
+              }
+            ]
+          },
+          "docs": "Re-enables a previously disabled subscription."
+        },
+        {
+          "info": {
+            "name": "Disable a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v1/subscriptions/:subscription_id/disable",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path",
+                "description": "The subscription identifier."
+              }
+            ]
+          },
+          "docs": "Pauses a subscription so no further charges are made until it is re-enabled."
+        },
+        {
+          "info": {
+            "name": "Cancel a subscription",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.midtrans.com/v1/subscriptions/:subscription_id/cancel",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "path",
+                "description": "The subscription identifier."
+              }
+            ]
+          },
+          "docs": "Permanently cancels a subscription."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
