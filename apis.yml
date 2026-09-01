@@ -43,7 +43,7 @@ tags:
 - Payment Gateway
 - Indonesia
 - Southeast Asia
-- Snap
+- SNAP
 - E-Wallet
 - Virtual Account
 - Cards
@@ -260,7 +260,7 @@ apis:
   humanURL: https://docs.midtrans.com/reference/snap-api-overview
   baseURL: https://app.midtrans.com/snap/v1
   tags:
-  - Snap
+  - SNAP
   tags_raw:
   - Snap
   properties:
