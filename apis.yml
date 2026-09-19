@@ -44,9 +44,9 @@ tags:
 - Southeast Asia
 - SNAP
 - E-Wallet
-- Virtual Account
+- Virtual Accounts
 - Cards
-- Bank Transfer
+- Bank Transfers
 - Fintech
 tags_raw:
 - Payments
@@ -221,6 +221,8 @@ apis:
   humanURL: https://docs.midtrans.com/reference/snap-api-overview
   baseURL: https://app.midtrans.com/snap/v1
   tags:
+  - Payment Links
+  tags_raw:
   - Payment Link
   properties:
   - type: OpenAPI
