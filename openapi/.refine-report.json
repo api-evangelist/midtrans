@@ -1,13 +1,7 @@
 {
   "provider": "midtrans",
   "sources": [
-    "midtrans-card-tokenization-api-openapi.yml",
-    "midtrans-core-api-api-openapi.yml",
-    "midtrans-gopay-tokenization-api-openapi.yml",
-    "midtrans-iris-disbursement-api-openapi.yml",
-    "midtrans-payment-link-api-openapi.yml",
-    "midtrans-snap-api-openapi.yml",
-    "midtrans-subscription-api-openapi.yml"
+    "_original/midtrans-openapi.yml"
   ],
   "outputs": [
     "midtrans-card-tokenization-api-openapi.yml",
@@ -21,6 +15,18 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "midtrans-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "midtrans-card-tokenization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-core-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-gopay-tokenization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-iris-disbursement-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-payment-link-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-snap-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "midtrans-subscription-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
