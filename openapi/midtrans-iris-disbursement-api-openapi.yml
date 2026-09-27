@@ -290,56 +290,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    PayoutItem:
-      type: object
-      required:
-      - beneficiary_name
-      - beneficiary_account
-      - beneficiary_bank
-      - amount
-      properties:
-        beneficiary_name:
-          type: string
-        beneficiary_account:
-          type: string
-        beneficiary_bank:
-          type: string
-        beneficiary_email:
-          type: string
-        amount:
-          type: string
-        notes:
-          type: string
-    PayoutResponse:
-      type: object
-      properties:
-        payouts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payout'
-    PayoutApproval:
-      type: object
-      required:
-      - reference_nos
-      properties:
-        reference_nos:
-          type: array
-          items:
-            type: string
-        otp:
-          type: string
-    PayoutRejection:
-      type: object
-      required:
-      - reference_nos
-      - reject_reason
-      properties:
-        reference_nos:
-          type: array
-          items:
-            type: string
-        reject_reason:
-          type: string
     PayoutRequest:
       type: object
       required:
@@ -349,6 +299,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PayoutItem'
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
     Beneficiary:
       type: object
       properties:
@@ -377,24 +336,65 @@ components:
           type: string
         account:
           type: string
-    Error:
+    PayoutItem:
+      type: object
+      required:
+      - beneficiary_name
+      - beneficiary_account
+      - beneficiary_bank
+      - amount
+      properties:
+        beneficiary_name:
+          type: string
+        beneficiary_account:
+          type: string
+        beneficiary_bank:
+          type: string
+        beneficiary_email:
+          type: string
+        amount:
+          type: string
+        notes:
+          type: string
+    PayoutRejection:
+      type: object
+      required:
+      - reference_nos
+      - reject_reason
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        reject_reason:
+          type: string
+    PayoutResponse:
       type: object
       properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payout'
+    PayoutApproval:
+      type: object
+      required:
+      - reference_nos
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        otp:
           type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing or invalid credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid credentials.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

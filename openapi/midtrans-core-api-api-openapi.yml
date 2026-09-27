@@ -183,49 +183,26 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    OrderId:
-      name: order_id
-      in: path
-      required: true
-      description: The merchant order_id (or Midtrans transaction_id) of the transaction.
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid credentials.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    RefundRequest:
+    TransactionDetails:
       type: object
+      required:
+      - order_id
+      - gross_amount
       properties:
-        refund_key:
+        order_id:
           type: string
-          description: Merchant-supplied unique key for this refund.
-        amount:
+        gross_amount:
           type: integer
-          description: Amount to refund; omit for a full refund.
-        reason:
-          type: string
-    ItemDetail:
+          description: Total amount in the smallest currency unit (IDR has no decimals).
+    Error:
       type: object
       properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
         id:
-          type: string
-        price:
-          type: integer
-        quantity:
-          type: integer
-        name:
           type: string
     ChargeRequest:
       type: object
@@ -332,6 +309,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Action'
+    ItemDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        name:
+          type: string
     CustomerDetails:
       type: object
       properties:
@@ -353,26 +341,38 @@ components:
         url:
           type: string
           format: uri
-    TransactionDetails:
+    RefundRequest:
       type: object
-      required:
-      - order_id
-      - gross_amount
       properties:
-        order_id:
+        refund_key:
           type: string
-        gross_amount:
+          description: Merchant-supplied unique key for this refund.
+        amount:
           type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
-    Error:
-      type: object
-      properties:
-        status_code:
+          description: Amount to refund; omit for a full refund.
+        reason:
           type: string
-        status_message:
-          type: string
-        id:
-          type: string
+  parameters:
+    OrderId:
+      name: order_id
+      in: path
+      required: true
+      description: The merchant order_id (or Midtrans transaction_id) of the transaction.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     serverKeyAuth:
       type: http

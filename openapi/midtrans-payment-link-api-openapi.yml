@@ -76,28 +76,35 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    OrderId:
-      name: order_id
-      in: path
-      required: true
-      description: The merchant order_id (or Midtrans transaction_id) of the transaction.
-      schema:
-        type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid credentials.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+    PaymentLink:
+      type: object
+      properties:
+        order_id:
+          type: string
+        payment_url:
+          type: string
+          format: uri
     PaymentLinkRequest:
       type: object
       required:
@@ -131,14 +138,6 @@ components:
           type: integer
         name:
           type: string
-    PaymentLink:
-      type: object
-      properties:
-        order_id:
-          type: string
-        payment_url:
-          type: string
-          format: uri
     CustomerDetails:
       type: object
       properties:
@@ -150,26 +149,27 @@ components:
           type: string
         phone:
           type: string
-    TransactionDetails:
-      type: object
-      required:
-      - order_id
-      - gross_amount
-      properties:
-        order_id:
-          type: string
-        gross_amount:
-          type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
+  parameters:
+    OrderId:
+      name: order_id
+      in: path
+      required: true
+      description: The merchant order_id (or Midtrans transaction_id) of the transaction.
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     serverKeyAuth:
       type: http

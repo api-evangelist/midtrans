@@ -128,7 +128,24 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    SubscriptionId:
+      name: subscription_id
+      in: path
+      required: true
+      description: The subscription identifier.
+      schema:
+        type: string
   schemas:
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
     Subscription:
       allOf:
       - $ref: '#/components/schemas/SubscriptionRequest'
@@ -141,41 +158,6 @@ components:
             enum:
             - active
             - inactive
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
-    CustomerDetails:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    SubscriptionSchedule:
-      type: object
-      properties:
-        interval:
-          type: integer
-        interval_unit:
-          type: string
-          enum:
-          - day
-          - week
-          - month
-        max_interval:
-          type: integer
-        start_time:
-          type: string
     SubscriptionRequest:
       type: object
       required:
@@ -209,27 +191,45 @@ components:
           additionalProperties: true
         customer_details:
           $ref: '#/components/schemas/CustomerDetails'
+    SubscriptionSchedule:
+      type: object
+      properties:
+        interval:
+          type: integer
+        interval_unit:
+          type: string
+          enum:
+          - day
+          - week
+          - month
+        max_interval:
+          type: integer
+        start_time:
+          type: string
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid credentials.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    SubscriptionId:
-      name: subscription_id
-      in: path
-      required: true
-      description: The subscription identifier.
-      schema:
-        type: string
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     serverKeyAuth:
       type: http
