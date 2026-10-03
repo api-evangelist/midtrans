@@ -69,15 +69,16 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
+    Action:
       type: object
       properties:
-        status_code:
+        name:
           type: string
-        status_message:
+        method:
           type: string
-        id:
+        url:
           type: string
+          format: uri
     PayAccountRequest:
       type: object
       required:
@@ -97,16 +98,15 @@ components:
             redirect_url:
               type: string
               format: uri
-    Action:
+    Error:
       type: object
       properties:
-        name:
+        status_code:
           type: string
-        method:
+        status_message:
           type: string
-        url:
+        id:
           type: string
-          format: uri
     PayAccount:
       type: object
       properties:

@@ -290,24 +290,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    PayoutRequest:
-      type: object
-      required:
-      - payouts
-      properties:
-        payouts:
-          type: array
-          items:
-            $ref: '#/components/schemas/PayoutItem'
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
     Beneficiary:
       type: object
       properties:
@@ -320,6 +302,54 @@ components:
         alias_name:
           type: string
         email:
+          type: string
+    PayoutResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payout'
+    PayoutApproval:
+      type: object
+      required:
+      - reference_nos
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        otp:
+          type: string
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+    PayoutRequest:
+      type: object
+      required:
+      - payouts
+      properties:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/PayoutItem'
+    PayoutRejection:
+      type: object
+      required:
+      - reference_nos
+      - reject_reason
+      properties:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        reject_reason:
           type: string
     Payout:
       type: object
@@ -355,36 +385,6 @@ components:
         amount:
           type: string
         notes:
-          type: string
-    PayoutRejection:
-      type: object
-      required:
-      - reference_nos
-      - reject_reason
-      properties:
-        reference_nos:
-          type: array
-          items:
-            type: string
-        reject_reason:
-          type: string
-    PayoutResponse:
-      type: object
-      properties:
-        payouts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payout'
-    PayoutApproval:
-      type: object
-      required:
-      - reference_nos
-      properties:
-        reference_nos:
-          type: array
-          items:
-            type: string
-        otp:
           type: string
   responses:
     Unauthorized:

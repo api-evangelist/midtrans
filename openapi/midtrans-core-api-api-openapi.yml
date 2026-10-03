@@ -184,26 +184,27 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TransactionDetails:
-      type: object
-      required:
-      - order_id
-      - gross_amount
-      properties:
-        order_id:
-          type: string
-        gross_amount:
-          type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
-    Error:
+    ItemDetail:
       type: object
       properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
         id:
           type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        name:
+          type: string
+    Action:
+      type: object
+      properties:
+        name:
+          type: string
+        method:
+          type: string
+        url:
+          type: string
+          format: uri
     ChargeRequest:
       type: object
       required:
@@ -260,6 +261,26 @@ components:
         shopeepay:
           type: object
           additionalProperties: true
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     TransactionStatus:
       type: object
       properties:
@@ -309,38 +330,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Action'
-    ItemDetail:
-      type: object
-      properties:
-        id:
-          type: string
-        price:
-          type: integer
-        quantity:
-          type: integer
-        name:
-          type: string
-    CustomerDetails:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    Action:
-      type: object
-      properties:
-        name:
-          type: string
-        method:
-          type: string
-        url:
-          type: string
-          format: uri
     RefundRequest:
       type: object
       properties:
@@ -352,6 +341,17 @@ components:
           description: Amount to refund; omit for a full refund.
         reason:
           type: string
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
   parameters:
     OrderId:
       name: order_id

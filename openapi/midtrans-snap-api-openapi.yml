@@ -49,34 +49,17 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    TransactionDetails:
-      type: object
-      required:
-      - order_id
-      - gross_amount
-      properties:
-        order_id:
-          type: string
-        gross_amount:
-          type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
-    Error:
+    ItemDetail:
       type: object
       properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
         id:
           type: string
-    SnapResponse:
-      type: object
-      properties:
-        token:
+        price:
+          type: integer
+        quantity:
+          type: integer
+        name:
           type: string
-        redirect_url:
-          type: string
-          format: uri
     SnapRequest:
       type: object
       required:
@@ -97,16 +80,22 @@ components:
         credit_card:
           type: object
           additionalProperties: true
-    ItemDetail:
+    SnapResponse:
       type: object
       properties:
-        id:
+        token:
           type: string
-        price:
-          type: integer
-        quantity:
-          type: integer
-        name:
+        redirect_url:
+          type: string
+          format: uri
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
           type: string
     CustomerDetails:
       type: object
@@ -119,6 +108,17 @@ components:
           type: string
         phone:
           type: string
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
   responses:
     Unauthorized:
       description: Missing or invalid credentials.
