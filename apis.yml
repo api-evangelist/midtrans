@@ -42,7 +42,7 @@ tags:
 - Payment Gateway
 - Indonesia
 - Southeast Asia
-- SNAP
+- Snap
 - Digital Wallet
 - Virtual Accounts
 - Cards
@@ -261,7 +261,7 @@ apis:
   humanURL: https://docs.midtrans.com/reference/snap-api-overview
   baseURL: https://app.midtrans.com/snap/v1
   tags:
-  - SNAP
+  - Snap
   tags_raw:
   - Snap
   properties:
@@ -334,6 +334,9 @@ apis:
   - type: Documentation
     url: https://docs.midtrans.com/docs/disbursement-overview
 common:
+- type: CapabilityMap
+  url: capabilities/midtrans-capability-edges.yml
+  name: Midtrans Business Capability Map
 - type: AgenticAccess
   url: agentic-access/midtrans-agentic-access.yml
 - type: DomainSecurity
