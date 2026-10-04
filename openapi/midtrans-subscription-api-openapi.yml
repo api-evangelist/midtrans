@@ -129,26 +129,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
-    CustomerDetails:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
     Subscription:
       allOf:
       - $ref: '#/components/schemas/SubscriptionRequest'
@@ -175,6 +155,17 @@ components:
         max_interval:
           type: integer
         start_time:
+          type: string
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
           type: string
     SubscriptionRequest:
       type: object
@@ -209,6 +200,23 @@ components:
           additionalProperties: true
         customer_details:
           $ref: '#/components/schemas/CustomerDetails'
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
+  parameters:
+    SubscriptionId:
+      name: subscription_id
+      in: path
+      required: true
+      description: The subscription identifier.
+      schema:
+        type: string
   responses:
     Unauthorized:
       description: Missing or invalid credentials.
@@ -222,14 +230,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  parameters:
-    SubscriptionId:
-      name: subscription_id
-      in: path
-      required: true
-      description: The subscription identifier.
-      schema:
-        type: string
   securitySchemes:
     serverKeyAuth:
       type: http

@@ -77,6 +77,25 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    PaymentLink:
+      type: object
+      properties:
+        order_id:
+          type: string
+        payment_url:
+          type: string
+          format: uri
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     ItemDetail:
       type: object
       properties:
@@ -88,6 +107,17 @@ components:
           type: integer
         name:
           type: string
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
     PaymentLinkRequest:
       type: object
       required:
@@ -119,36 +149,6 @@ components:
           type: string
         id:
           type: string
-    PaymentLink:
-      type: object
-      properties:
-        order_id:
-          type: string
-        payment_url:
-          type: string
-          format: uri
-    CustomerDetails:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    TransactionDetails:
-      type: object
-      required:
-      - order_id
-      - gross_amount
-      properties:
-        order_id:
-          type: string
-        gross_amount:
-          type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
   parameters:
     OrderId:
       name: order_id

@@ -184,27 +184,55 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    ItemDetail:
+    TransactionStatus:
       type: object
       properties:
-        id:
+        status_code:
           type: string
-        price:
-          type: integer
-        quantity:
-          type: integer
-        name:
+        status_message:
           type: string
-    Action:
-      type: object
-      properties:
-        name:
+        transaction_id:
           type: string
-        method:
+        order_id:
           type: string
-        url:
+        gross_amount:
           type: string
-          format: uri
+        payment_type:
+          type: string
+        transaction_time:
+          type: string
+        transaction_status:
+          type: string
+          enum:
+          - authorize
+          - capture
+          - settlement
+          - pending
+          - deny
+          - cancel
+          - expire
+          - refund
+          - partial_refund
+          - failure
+        fraud_status:
+          type: string
+          enum:
+          - accept
+          - challenge
+          - deny
+        va_numbers:
+          type: array
+          items:
+            type: object
+            properties:
+              bank:
+                type: string
+              va_number:
+                type: string
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
     ChargeRequest:
       type: object
       required:
@@ -261,15 +289,6 @@ components:
         shopeepay:
           type: object
           additionalProperties: true
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
     CustomerDetails:
       type: object
       properties:
@@ -281,55 +300,6 @@ components:
           type: string
         phone:
           type: string
-    TransactionStatus:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        transaction_id:
-          type: string
-        order_id:
-          type: string
-        gross_amount:
-          type: string
-        payment_type:
-          type: string
-        transaction_time:
-          type: string
-        transaction_status:
-          type: string
-          enum:
-          - authorize
-          - capture
-          - settlement
-          - pending
-          - deny
-          - cancel
-          - expire
-          - refund
-          - partial_refund
-          - failure
-        fraud_status:
-          type: string
-          enum:
-          - accept
-          - challenge
-          - deny
-        va_numbers:
-          type: array
-          items:
-            type: object
-            properties:
-              bank:
-                type: string
-              va_number:
-                type: string
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Action'
     RefundRequest:
       type: object
       properties:
@@ -341,6 +311,27 @@ components:
           description: Amount to refund; omit for a full refund.
         reason:
           type: string
+    ItemDetail:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: integer
+        quantity:
+          type: integer
+        name:
+          type: string
+    Action:
+      type: object
+      properties:
+        name:
+          type: string
+        method:
+          type: string
+        url:
+          type: string
+          format: uri
     TransactionDetails:
       type: object
       required:
@@ -352,6 +343,15 @@ components:
         gross_amount:
           type: integer
           description: Total amount in the smallest currency unit (IDR has no decimals).
+    Error:
+      type: object
+      properties:
+        status_code:
+          type: string
+        status_message:
+          type: string
+        id:
+          type: string
   parameters:
     OrderId:
       name: order_id

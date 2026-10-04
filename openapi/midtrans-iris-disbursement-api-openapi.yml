@@ -290,46 +290,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Beneficiary:
-      type: object
-      properties:
-        name:
-          type: string
-        account:
-          type: string
-        bank:
-          type: string
-        alias_name:
-          type: string
-        email:
-          type: string
-    PayoutResponse:
-      type: object
-      properties:
-        payouts:
-          type: array
-          items:
-            $ref: '#/components/schemas/Payout'
-    PayoutApproval:
-      type: object
-      required:
-      - reference_nos
-      properties:
-        reference_nos:
-          type: array
-          items:
-            type: string
-        otp:
-          type: string
-    Error:
-      type: object
-      properties:
-        status_code:
-          type: string
-        status_message:
-          type: string
-        id:
-          type: string
     PayoutRequest:
       type: object
       required:
@@ -339,6 +299,33 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/PayoutItem'
+    PayoutResponse:
+      type: object
+      properties:
+        payouts:
+          type: array
+          items:
+            $ref: '#/components/schemas/Payout'
+    PayoutItem:
+      type: object
+      required:
+      - beneficiary_name
+      - beneficiary_account
+      - beneficiary_bank
+      - amount
+      properties:
+        beneficiary_name:
+          type: string
+        beneficiary_account:
+          type: string
+        beneficiary_bank:
+          type: string
+        beneficiary_email:
+          type: string
+        amount:
+          type: string
+        notes:
+          type: string
     PayoutRejection:
       type: object
       required:
@@ -366,25 +353,38 @@ components:
           type: string
         account:
           type: string
-    PayoutItem:
+    Beneficiary:
+      type: object
+      properties:
+        name:
+          type: string
+        account:
+          type: string
+        bank:
+          type: string
+        alias_name:
+          type: string
+        email:
+          type: string
+    PayoutApproval:
       type: object
       required:
-      - beneficiary_name
-      - beneficiary_account
-      - beneficiary_bank
-      - amount
+      - reference_nos
       properties:
-        beneficiary_name:
+        reference_nos:
+          type: array
+          items:
+            type: string
+        otp:
           type: string
-        beneficiary_account:
+    Error:
+      type: object
+      properties:
+        status_code:
           type: string
-        beneficiary_bank:
+        status_message:
           type: string
-        beneficiary_email:
-          type: string
-        amount:
-          type: string
-        notes:
+        id:
           type: string
   responses:
     Unauthorized:

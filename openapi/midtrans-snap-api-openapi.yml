@@ -49,6 +49,25 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    SnapResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        redirect_url:
+          type: string
+          format: uri
+    CustomerDetails:
+      type: object
+      properties:
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
     ItemDetail:
       type: object
       properties:
@@ -60,6 +79,17 @@ components:
           type: integer
         name:
           type: string
+    TransactionDetails:
+      type: object
+      required:
+      - order_id
+      - gross_amount
+      properties:
+        order_id:
+          type: string
+        gross_amount:
+          type: integer
+          description: Total amount in the smallest currency unit (IDR has no decimals).
     SnapRequest:
       type: object
       required:
@@ -80,14 +110,6 @@ components:
         credit_card:
           type: object
           additionalProperties: true
-    SnapResponse:
-      type: object
-      properties:
-        token:
-          type: string
-        redirect_url:
-          type: string
-          format: uri
     Error:
       type: object
       properties:
@@ -97,28 +119,6 @@ components:
           type: string
         id:
           type: string
-    CustomerDetails:
-      type: object
-      properties:
-        first_name:
-          type: string
-        last_name:
-          type: string
-        email:
-          type: string
-        phone:
-          type: string
-    TransactionDetails:
-      type: object
-      required:
-      - order_id
-      - gross_amount
-      properties:
-        order_id:
-          type: string
-        gross_amount:
-          type: integer
-          description: Total amount in the smallest currency unit (IDR has no decimals).
   responses:
     Unauthorized:
       description: Missing or invalid credentials.
