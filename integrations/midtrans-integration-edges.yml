@@ -1,0 +1,41 @@
+edges:
+- partner_name: Bank Indonesia payment-system licence register
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+  category: open finance / payments (Indonesia)
+  contract_reference:
+    register: Bank Indonesia payment-system licence register
+    spec_file: null
+    standard: Bank Indonesia payment-system licensing (PBI 22/23/2020; SNAP applies to licensees)
+    role: licensed-participant
+    registrations:
+    - registered_name: PT Midtrans
+      licences:
+      - Payment Service Provider - License Category 2
+      matched_domain: midtrans.com
+      matched_by: domain
+      evidence: https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+      product: Penyelenggara Payment Gateway
+      decision: PGT0428
+    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
+    detected_by: sweep-gulf-asean-open-finance.py
+    detected: '2026-10-18'
+  detected_by: sweep-gulf-asean-open-finance.py
+  first_seen: '2026-10-18'
+generated: '2026-10-18'
+method: searched
+source:
+- https://eservices.mas.gov.sg/fid
+- https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+- https://www.bnm.gov.my/list-of-regulatees
+- https://www.ojk.go.id/id/kanal/iknb/data-dan-statistik/direktori/fintech/Default.aspx
+checked:
+- https://eservices.mas.gov.sg/fid
+- https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+- https://www.bnm.gov.my/list-of-regulatees
+- https://www.ojk.go.id/id/kanal/iknb/data-dan-statistik/direktori/fintech/Default.aspx
